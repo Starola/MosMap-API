@@ -17,10 +17,13 @@
         <e p="Migrations" t="Include">
           <e p="20191208150602_InitialMigration.cs" t="Include" />
           <e p="20191208150602_InitialMigration.Designer.cs" t="Include" />
+          <e p="20191208154859_AddedUserEntity.cs" t="Include" />
+          <e p="20191208154859_AddedUserEntity.Designer.cs" t="Include" />
           <e p="DataContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
           <e p="TestModel.cs" t="Include" />
+          <e p="User.cs" t="Include" />
         </e>
         <e p="MosMap-API.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
