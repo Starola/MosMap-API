@@ -19,7 +19,7 @@ namespace MosMap_API.Controllers
     {
         private readonly IAuthService _service;
 
-        public AuthController(IAuthRepository repo, IConfiguration config, IAuthService service)
+        public AuthController(IConfiguration config, IAuthService service)
         {
             _service = service;
         }
@@ -27,13 +27,14 @@ namespace MosMap_API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            return Ok(_service.Register(userForRegisterDto));
+            var user = await _service.Register(userForRegisterDto);
+            return Ok(user);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            var token = _service.Login(userForLoginDto);
+            var token = await _service.Login(userForLoginDto);
             if (token == null) return Unauthorized();
             else return Ok(token);
         }

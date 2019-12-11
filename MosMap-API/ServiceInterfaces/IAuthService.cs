@@ -9,5 +9,7 @@ namespace MosMap_API.ServiceInterfaces
     {
         Task<User> Register(UserForRegisterDto userForRegisterDto);
         Task<SecurityToken> Login(UserForLoginDto userForLoginDto);
+
+        Task<bool> UserExists(string username);
     }
 }

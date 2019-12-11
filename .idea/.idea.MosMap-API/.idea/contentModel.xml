@@ -13,9 +13,7 @@
           <e p="WeatherForecastController.cs" t="Include" />
         </e>
         <e p="Data" t="Include">
-          <e p="AuthRepository.cs" t="Include" />
           <e p="DataContext.cs" t="Include" />
-          <e p="IAuthRepository.cs" t="Include" />
         </e>
         <e p="Dtos" t="Include">
           <e p="UserForLoginDto.cs" t="Include" />
@@ -43,6 +41,12 @@
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="ServiceInterfaces" t="Include">
+          <e p="IAuthService.cs" t="Include" />
+        </e>
+        <e p="Services" t="Include">
+          <e p="AuthService.cs" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="WeatherForecast.cs" t="Include" />
