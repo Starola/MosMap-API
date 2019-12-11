@@ -15,6 +15,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using MosMap_API.Data;
+using MosMap_API.ServiceInterfaces;
+using MosMap_API.Services;
 
 namespace MosMap_API
 {
@@ -33,7 +35,7 @@ namespace MosMap_API
             services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddCors();
-            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
