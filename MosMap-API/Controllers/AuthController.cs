@@ -17,14 +17,10 @@ namespace MosMap_API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthRepository _repo;
-        private readonly IConfiguration _config;
         private readonly IAuthService _service;
 
         public AuthController(IAuthRepository repo, IConfiguration config, IAuthService service)
         {
-            _repo = repo;
-            _config = config;
             _service = service;
         }
 
