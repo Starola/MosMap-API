@@ -28,6 +28,10 @@ namespace MosMap_API.Controllers
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
             var user = await _service.Register(userForRegisterDto);
+            if (user == null)
+            {
+                return BadRequest("Incorrect");
+            }
             return Ok(user);
         }
 
