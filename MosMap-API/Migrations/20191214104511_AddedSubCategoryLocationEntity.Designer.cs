@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MosMap_API.Data;
 
 namespace MosMap_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191214104511_AddedSubCategoryLocationEntity")]
+    partial class AddedSubCategoryLocationEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,14 +77,8 @@ namespace MosMap_API.Migrations
                     b.Property<string>("Longitude")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<bool>("ShowUserSuggestedLocation")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("UserSuggestedLocation")
-                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
