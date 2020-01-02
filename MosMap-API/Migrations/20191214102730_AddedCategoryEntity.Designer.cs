@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MosMap_API.Data;
 
 namespace MosMap_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191214102730_AddedCategoryEntity")]
+    partial class AddedCategoryEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,10 +45,10 @@ namespace MosMap_API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("CategoryDescription")
+                    b.Property<string>("CategroryDescription")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("CategoryName")
+                    b.Property<string>("CategroyName")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
@@ -75,14 +77,8 @@ namespace MosMap_API.Migrations
                     b.Property<string>("Longitude")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<bool>("ShowUserSuggestedLocation")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("UserSuggestedLocation")
-                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
@@ -91,49 +87,6 @@ namespace MosMap_API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("MosMap_API.Models.SubCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SubCategoryDescription")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("SubCategoryName")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("SubCategories");
-                });
-
-            modelBuilder.Entity("MosMap_API.Models.SubCategoryLocation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LocationId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SubCategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LocationId");
-
-                    b.HasIndex("SubCategoryId");
-
-                    b.ToTable("SubCategoryLocations");
                 });
 
             modelBuilder.Entity("MosMap_API.Models.TestModel", b =>
@@ -184,24 +137,6 @@ namespace MosMap_API.Migrations
                     b.HasOne("MosMap_API.Models.User", "User")
                         .WithMany("Locations")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("MosMap_API.Models.SubCategory", b =>
-                {
-                    b.HasOne("MosMap_API.Models.Category", "Category")
-                        .WithMany("SubCategories")
-                        .HasForeignKey("CategoryId");
-                });
-
-            modelBuilder.Entity("MosMap_API.Models.SubCategoryLocation", b =>
-                {
-                    b.HasOne("MosMap_API.Models.Location", "Location")
-                        .WithMany("SubCategoryLocations")
-                        .HasForeignKey("LocationId");
-
-                    b.HasOne("MosMap_API.Models.SubCategory", "SubCategory")
-                        .WithMany("SubCategoryLocations")
-                        .HasForeignKey("SubCategoryId");
                 });
 
             modelBuilder.Entity("MosMap_API.Models.User", b =>
