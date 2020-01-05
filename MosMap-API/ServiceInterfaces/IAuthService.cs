@@ -8,7 +8,7 @@ namespace MosMap_API.ServiceInterfaces
     public interface IAuthService
     {
         Task<User> Register(UserForRegisterDto userForRegisterDto);
-        Task<string> Login(UserForLoginDto userForLoginDto);
+        Task<SecurityToken> Login(UserForLoginDto userForLoginDto);
         Task<bool> UserExists(string username);
     }
 }

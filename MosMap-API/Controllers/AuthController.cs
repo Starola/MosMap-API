@@ -40,7 +40,11 @@ namespace MosMap_API.Controllers
         {
             var token = await _service.Login(userForLoginDto);
             if (token == null) return Unauthorized();
-            else return Ok(token);
+            else
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                return Ok(new { token = tokenHandler.WriteToken(token)});
+            }
         }
     }
 }

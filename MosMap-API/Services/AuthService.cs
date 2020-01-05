@@ -72,7 +72,7 @@ namespace MosMap_API.Services
          * Methods for login process
          */
 
-        public async Task<string> Login(UserForLoginDto userForLoginDto)
+        public async Task<SecurityToken> Login(UserForLoginDto userForLoginDto)
         {
             //Gets the user if the credentials are right
             var userFromRepo = await GetUserForLogin(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
@@ -101,7 +101,7 @@ namespace MosMap_API.Services
         }
         
 
-        private string CreateToken(User user)
+        private SecurityToken CreateToken(User user)
         {
             //The information in claim in the token can be accessed 
             var claims = new[]
@@ -123,7 +123,7 @@ namespace MosMap_API.Services
             //token gets created
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return tokenHandler.WriteToken(token);
+            return token;
         }
         
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
