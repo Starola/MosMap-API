@@ -23,23 +23,24 @@ namespace MosMap_API.Services
 
         public IEnumerable<Category> GetAllCategories()
         {
-            return _context.Categories
+            /*return _context.Categories
                 .Include(sub => sub.SubCategories)
                 .Include(loc => loc.Locations)
-                .ToList();
+                .ToList();*/
             
-            //return _context.Categories.ToList();
+            return _context.Categories.ToList();
         }
 
         public Category GetCategoryById(int id)
         {
-            return _context.Categories
+            /*return _context.Categories
                 .Where(i => i.Id.Equals(id))
                 .Include(sub => sub.SubCategories)
                 .Include(loc => loc.Locations)
-                .FirstOrDefault();
+                .FirstOrDefault();*/
             
-            //return _context.Categories.Where(i => i.Id.Equals(id)).FirstOrDefault();
+            return _context.Categories.Where(i => i.Id.Equals(id)).FirstOrDefault();
         }
+
     }
 }

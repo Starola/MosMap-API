@@ -18,6 +18,7 @@ using MosMap_API.Data;
 using MosMap_API.ServiceInterfaces;
 using MosMap_API.Services;
 using Newtonsoft.Json;
+using AutoMapper;
 
 namespace MosMap_API
 {
@@ -50,10 +51,11 @@ namespace MosMap_API
                         ValidateAudience = false
                     };
                 });
-            // necessary to use all json options
+            /*// necessary to use all json options
             services.AddMvc(option => option.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);*/
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

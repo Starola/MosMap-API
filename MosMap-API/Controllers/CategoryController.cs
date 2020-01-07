@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using MosMap_API.Dtos;
 using MosMap_API.Models;
 using MosMap_API.ServiceInterfaces;
 
@@ -15,10 +17,12 @@ namespace MosMap_API.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _service;
+        private IMapper _mapper;
 
-        public CategoryController(IConfiguration config, ICategoryService service)
+        public CategoryController(IConfiguration config, ICategoryService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -28,8 +32,10 @@ namespace MosMap_API.Controllers
             {
                 // returns all categories from database
                 IEnumerable<Category> categories = _service.GetAllCategories();
+                // map category to categorydto
+                IEnumerable<CategoryDto> categoriesResult = _mapper.Map<IEnumerable<CategoryDto>>(categories);
                 // Ok = status code 200
-                return Ok(categories);
+                return Ok(categoriesResult);
             }
             catch (Exception ex)
             {
@@ -44,6 +50,7 @@ namespace MosMap_API.Controllers
             try
             {
                 Category category = _service.GetCategoryById(id);
+                CategoryDto categoryResult = _mapper.Map<CategoryDto>(category);
 
                 if (category == null)
                 {
@@ -52,7 +59,7 @@ namespace MosMap_API.Controllers
                 }
                 else
                 {
-                    return Ok(category);
+                    return Ok(categoryResult);
                 }
             }
             catch (Exception ex)
@@ -61,5 +68,6 @@ namespace MosMap_API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
     }
 }
