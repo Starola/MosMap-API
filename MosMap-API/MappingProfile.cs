@@ -13,6 +13,7 @@ namespace MosMap_API
         public MappingProfile()
         {
             CreateMap<Category, CategoryDto>();
+            CreateMap<SubCategory, SubCategoryDto>();
 
         }
     }
