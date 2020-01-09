@@ -33,11 +33,20 @@ namespace MosMap_API.Controllers
             {
                 // returns all subcategories from database
                 IEnumerable<SubCategory> subcategories = _service.GetAllSubCategories(categoryId);
+
+                if(subcategories.Count() == 0)
+                {
+                    // no subcategories were found with categoryid
+                    return NotFound();
+                }
+                else
+                {
+                    // map subcategory to categorydto
+                    IEnumerable<SubCategoryDto> subcategoriesResult = _mapper.Map<IEnumerable<SubCategoryDto>>(subcategories);
+                    // Ok = status code 200
+                    return Ok(subcategoriesResult);
+                }
                 
-                // map subcategory to categorydto
-                IEnumerable<SubCategoryDto> subcategoriesResult = _mapper.Map<IEnumerable<SubCategoryDto>>(subcategories);
-                // Ok = status code 200
-                return Ok(subcategoriesResult);
             }
             catch (Exception ex)
             {

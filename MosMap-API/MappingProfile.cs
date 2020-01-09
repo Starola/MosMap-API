@@ -14,6 +14,8 @@ namespace MosMap_API
         {
             CreateMap<Category, CategoryDto>();
             CreateMap<SubCategory, SubCategoryDto>();
+            CreateMap<CategoryForCreationDto, Category>();
+            CreateMap<CategoryForUpdateDto, Category>();
 
         }
     }

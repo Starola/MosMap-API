@@ -44,13 +44,12 @@ namespace MosMap_API.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "CategoryById")]
         public IActionResult GetCategoryById(int id)
         {
             try
             {
                 Category category = _service.GetCategoryById(id);
-                CategoryDto categoryResult = _mapper.Map<CategoryDto>(category);
 
                 if (category == null)
                 {
@@ -59,6 +58,7 @@ namespace MosMap_API.Controllers
                 }
                 else
                 {
+                    CategoryDto categoryResult = _mapper.Map<CategoryDto>(category);
                     return Ok(categoryResult);
                 }
             }
@@ -68,6 +68,101 @@ namespace MosMap_API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+
+        [HttpPost]
+        public IActionResult CreateNewCategory([FromBody]CategoryForCreationDto category)
+        {
+            try
+            {
+                if (category == null)
+                {
+                    // Category object sent from client is null
+                    return BadRequest("Category object is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    // Invalid category object sent from client
+                    return BadRequest("Invalid model object");
+                }
+
+                Category categoryEntity = _mapper.Map<Category>(category);
+                _service.CreateCategory(categoryEntity);
+
+                CategoryDto createdCategory = _mapper.Map<CategoryDto>(categoryEntity);
+
+                return CreatedAtRoute("CategoryById", new { id = createdCategory.Id }, createdCategory);
+            }
+            catch (Exception ex)
+            {
+                //Something went wrong inside CreateCategory action
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult EditCategory(int id, [FromBody] CategoryForUpdateDto category)
+        {
+            try
+            {
+                if (category == null)
+                {
+                    // Category object sent from client is null
+                    return BadRequest("Category object is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    //n Invalid category object sent from client 
+                    return BadRequest("Invalid model object");
+                }
+
+                Category categoryEntity = _service.GetCategoryById(id);
+                if (categoryEntity == null)
+                {
+                    // Category with id hasn't been found in db
+                    return NotFound();
+                }
+
+                _mapper.Map(category, categoryEntity);
+
+                _service.UpdateCategory(categoryEntity);
+
+                //return NoContent();
+                CategoryDto createdCategory = _mapper.Map<CategoryDto>(categoryEntity);
+
+                return CreatedAtRoute("CategoryById", new { id = createdCategory.Id }, createdCategory);
+            }
+            catch (Exception ex)
+            {
+                // Something went wrong inside UpdateCategory action
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCategory(int id)
+        {
+            try
+            {
+                Category categoryEntity = _service.GetCategoryById(id);
+                if (categoryEntity == null)
+                {
+                    // Category with id hasn't been found in db
+                    return NotFound();
+                }
+                _service.DeleteCategory(categoryEntity);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                // Something went wrong inside DeleteCategory action
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
 
     }
 }
