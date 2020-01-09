@@ -130,9 +130,9 @@ namespace MosMap_API.Controllers
                 _service.UpdateCategory(categoryEntity);
 
                 //return NoContent();
-                CategoryDto createdCategory = _mapper.Map<CategoryDto>(categoryEntity);
+                CategoryDto updatedCategory = _mapper.Map<CategoryDto>(categoryEntity);
 
-                return CreatedAtRoute("CategoryById", new { id = createdCategory.Id }, createdCategory);
+                return CreatedAtRoute("CategoryById", new { id = id }, updatedCategory);
             }
             catch (Exception ex)
             {

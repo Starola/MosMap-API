@@ -52,10 +52,10 @@ namespace MosMap_API
                         ValidateAudience = false
                     };
                 });
-            /*// necessary to use all json options
+            // necessary to use all json options
             services.AddMvc(option => option.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);*/
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddAutoMapper(typeof(Startup));
         }
 

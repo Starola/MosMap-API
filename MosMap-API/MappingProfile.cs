@@ -12,10 +12,16 @@ namespace MosMap_API
     {
         public MappingProfile()
         {
+            // Category:
             CreateMap<Category, CategoryDto>();
-            CreateMap<SubCategory, SubCategoryDto>();
             CreateMap<CategoryForCreationDto, Category>();
             CreateMap<CategoryForUpdateDto, Category>();
+
+            // Subcategory:
+            CreateMap<SubCategory, SubCategoryDto>();
+            CreateMap<SubCategory, SubCategoryWithDetailsDto>();
+            CreateMap<SubCategoryForCreationDto, SubCategory>();
+            CreateMap<SubCategoryForUpdateDto, SubCategory>();
 
         }
     }
