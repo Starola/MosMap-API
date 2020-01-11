@@ -23,6 +23,9 @@ namespace MosMap_API
             CreateMap<SubCategoryForCreationDto, SubCategory>();
             CreateMap<SubCategoryForUpdateDto, SubCategory>();
 
+            // Location:
+            CreateMap<Location, LocationDto>();
+
         }
     }
 }
