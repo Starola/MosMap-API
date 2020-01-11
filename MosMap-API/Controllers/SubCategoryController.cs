@@ -26,12 +26,12 @@ namespace MosMap_API.Controllers
         }
 
         [HttpGet("categoryid/{categoryid}")]
-        public IActionResult GetAllSubCategories(int categoryId)
+        public async Task<IActionResult> GetAllSubCategories(int categoryId)
         {
             try
             {
                 // returns all subcategories from database
-                IEnumerable<SubCategory> subcategories = _service.GetAllSubCategories(categoryId);
+                IEnumerable<SubCategory> subcategories = await _service.GetAllSubCategories(categoryId);
 
                 if(subcategories.Count() == 0)
                 {
@@ -55,11 +55,11 @@ namespace MosMap_API.Controllers
         }
 
         [HttpGet("{id}", Name = "SubCategoryById")]
-        public IActionResult GetSubCategoryById(int id)
+        public async Task<IActionResult> GetSubCategoryById(int id)
         {
             try
             {
-                SubCategory subcategory = _service.GetSubCategoryById(id);
+                SubCategory subcategory = await _service.GetSubCategoryById(id);
 
                 if (subcategory == null)
                 {
@@ -80,7 +80,7 @@ namespace MosMap_API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateNewSubCategory([FromBody]SubCategoryForCreationDto subcategory)
+        public async Task<IActionResult> CreateNewSubCategory([FromBody]SubCategoryForCreationDto subcategory)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace MosMap_API.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                SubCategory createdSubCategory = _service.CreateSubCategory(subcategory);
+                SubCategory createdSubCategory = await _service.CreateSubCategory(subcategory);
 
                 SubCategoryDto createdSubCategoryDto = _mapper.Map<SubCategoryDto>(createdSubCategory);
 
@@ -110,7 +110,7 @@ namespace MosMap_API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult EditSubCategory(int id, [FromBody] SubCategoryForUpdateDto subcategory)
+        public async Task<IActionResult> EditSubCategory(int id, [FromBody] SubCategoryForUpdateDto subcategory)
         {
             try
             {
@@ -126,14 +126,14 @@ namespace MosMap_API.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                SubCategory subcategoryEntity = _service.GetSubCategoryById(id);
+                SubCategory subcategoryEntity = await _service.GetSubCategoryById(id);
                 if (subcategoryEntity == null)
                 {
                     // subcategory with id hasn't been found in db
                     return NotFound();
                 }
 
-                SubCategory updatedSubCategory = _service.UpdateSubCategory(id, subcategory);
+                SubCategory updatedSubCategory = await _service.UpdateSubCategory(id, subcategory);
 
                 SubCategoryWithDetailsDto updatedSubCategoryDto = _mapper.Map<SubCategoryWithDetailsDto>(subcategoryEntity);
 
@@ -147,11 +147,11 @@ namespace MosMap_API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteSubCategory(int id)
+        public async Task<IActionResult> DeleteSubCategory(int id)
         {
             try
             {
-                SubCategory subcategoryEntity = _service.GetSubCategoryById(id);
+                SubCategory subcategoryEntity = await _service.GetSubCategoryById(id);
                 if (subcategoryEntity == null)
                 {
                     // subcategory with id hasn't been found in db

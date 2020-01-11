@@ -22,7 +22,7 @@ namespace MosMap_API.Services
             _context = context;
         }
 
-        public SubCategory CreateSubCategory(SubCategoryForCreationDto subCategoryDto)
+        public async Task<SubCategory> CreateSubCategory(SubCategoryForCreationDto subCategoryDto)
         {
             Category category = _context.Categories
                 .Where(i => i.Id.Equals(subCategoryDto.CategoryId))
@@ -61,13 +61,13 @@ namespace MosMap_API.Services
             _context.SaveChanges();
         }
 
-        public IEnumerable<SubCategory> GetAllSubCategories(int categoryId)
+        public async Task<IEnumerable<SubCategory>> GetAllSubCategories(int categoryId)
         {
             return _context.SubCategories
                 .Where(i => i.Category.Id.Equals(categoryId));
         }
 
-        public SubCategory GetSubCategoryById(int id)
+        public async Task<SubCategory> GetSubCategoryById(int id)
         {
             /*return _context.SubCategories
                 .Where(i => i.Id.Equals(id))
@@ -80,7 +80,7 @@ namespace MosMap_API.Services
 
         }
 
-        public SubCategory UpdateSubCategory(int id, SubCategoryForUpdateDto subCategoryDto)
+        public async Task<SubCategory> UpdateSubCategory(int id, SubCategoryForUpdateDto subCategoryDto)
         {
             Category category = _context.Categories
                 .Where(i => i.Id.Equals(subCategoryDto.CategoryId))
