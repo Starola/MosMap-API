@@ -21,7 +21,7 @@ namespace MosMap_API.Services
             _context = context;
         }
 
-        public IEnumerable<Category> GetAllCategories()
+        public async Task<IEnumerable<Category>> GetAllCategories()
         {
             /*return _context.Categories
                 .Include(sub => sub.SubCategories)
@@ -31,7 +31,7 @@ namespace MosMap_API.Services
             return _context.Categories.ToList();
         }
 
-        public Category GetCategoryById(int id)
+        public async Task<Category> GetCategoryById(int id)
         {
             /*return _context.Categories
                 .Where(i => i.Id.Equals(id))

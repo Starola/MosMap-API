@@ -8,8 +8,8 @@ namespace MosMap_API.ServiceInterfaces
 {
     public interface ICategoryService
     {
-        IEnumerable<Category> GetAllCategories();
-        Category GetCategoryById(int id);
+        Task<IEnumerable<Category>> GetAllCategories();
+        Task<Category> GetCategoryById(int id);
         void CreateCategory(Category category);
         void UpdateCategory(Category category);
         void DeleteCategory(Category category);

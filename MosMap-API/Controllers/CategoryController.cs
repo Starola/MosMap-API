@@ -26,12 +26,12 @@ namespace MosMap_API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllCategories()
+        public async Task<IActionResult> GetAllCategories()
         {
             try
             {
                 // returns all categories from database
-                IEnumerable<Category> categories = _service.GetAllCategories();
+                IEnumerable<Category> categories = await _service.GetAllCategories();
                 // map category to categorydto
                 IEnumerable<CategoryDto> categoriesResult = _mapper.Map<IEnumerable<CategoryDto>>(categories);
                 // Ok = status code 200
@@ -45,11 +45,11 @@ namespace MosMap_API.Controllers
         }
 
         [HttpGet("{id}", Name = "CategoryById")]
-        public IActionResult GetCategoryById(int id)
+        public async Task<IActionResult> GetCategoryById(int id)
         {
             try
             {
-                Category category = _service.GetCategoryById(id);
+                Category category = await _service.GetCategoryById(id);
 
                 if (category == null)
                 {
@@ -71,7 +71,7 @@ namespace MosMap_API.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateNewCategory([FromBody]CategoryForCreationDto category)
+        public async Task<IActionResult> CreateNewCategory([FromBody]CategoryForCreationDto category)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace MosMap_API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult EditCategory(int id, [FromBody] CategoryForUpdateDto category)
+        public async Task<IActionResult> EditCategory(int id, [FromBody] CategoryForUpdateDto category)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace MosMap_API.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                Category categoryEntity = _service.GetCategoryById(id);
+                Category categoryEntity = await _service.GetCategoryById(id);
                 if (categoryEntity == null)
                 {
                     // Category with id hasn't been found in db
@@ -142,11 +142,11 @@ namespace MosMap_API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteCategory(int id)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
             try
             {
-                Category categoryEntity = _service.GetCategoryById(id);
+                Category categoryEntity = await _service.GetCategoryById(id);
                 if (categoryEntity == null)
                 {
                     // Category with id hasn't been found in db
