@@ -21,7 +21,7 @@ namespace MosMap_API.Services
             _context = context;
         }
 
-        public Location CreateLocation(LocationForCreationDto locationDto)
+        public async Task<Location> CreateLocation(LocationForCreationDto locationDto)
         {
             Category category = _context.Categories
                 .Where(i => i.Id.Equals(locationDto.CategoryId))
@@ -40,13 +40,13 @@ namespace MosMap_API.Services
                 Category = category
             };
 
-            _context.Add(location);
-            _context.SaveChanges();
+            await _context.AddAsync(location);
+            await _context.SaveChangesAsync();
 
             return location;
         }
 
-        public Location CreateLocationByUser(LocationForCreationDto locationDto)
+        public async Task<Location> CreateLocationByUser(LocationForCreationDto locationDto)
         {
             Location location = new Location
             {
@@ -57,8 +57,8 @@ namespace MosMap_API.Services
                 UserSuggestedLocation = true
             };
 
-            _context.Add(location);
-            _context.SaveChanges();
+            await _context.AddAsync(location);
+            await _context.SaveChangesAsync();
 
             return location;
         }
@@ -81,14 +81,14 @@ namespace MosMap_API.Services
             _context.SaveChanges();
         }
 
-        public IEnumerable<Location> GetAllLocationsByCategoryId(int categoryId)
+        public async Task<IEnumerable<Location>> GetAllLocationsByCategoryId(int categoryId)
         {
             return _context.Locations
                 .Where(i => i.Category.Id.Equals(categoryId))
                 .ToList();
         }
 
-        public IEnumerable<Location> GetAllLocationsByCategoryIds(int[] categoryIds)
+        public async Task<IEnumerable<Location>> GetAllLocationsByCategoryIds(int[] categoryIds)
         {
             List<Location> locationResult = new List<Location>();
             List<Location> locations = _context.Locations.ToList();
@@ -106,7 +106,7 @@ namespace MosMap_API.Services
         }
 
 
-        public IEnumerable<Location> GetAllLocationsBySubCategoryId(int subcategoryId)
+        public async Task<IEnumerable<Location>> GetAllLocationsBySubCategoryId(int subcategoryId)
         {
             List<SubCategoryLocation> subcategoryLocations = _context.SubCategoryLocations.Where(i => i.SubCategory.Id.Equals(subcategoryId)).ToList();
             List<Location> locations = _context.Locations.ToList();
@@ -126,12 +126,12 @@ namespace MosMap_API.Services
             return locationsResult;
         }
 
-        public Location GetLocationById(int id)
+        public async Task<Location> GetLocationById(int id)
         {
             return _context.Locations.Where(i => i.Id.Equals(id)).FirstOrDefault();
         }
 
-        public Location UpdateLocation(int id, LocationForUpdateDto locationDto)
+        public async Task<Location> UpdateLocation(int id, LocationForUpdateDto locationDto)
         {
             Category category = _context.Categories
                 .Where(i => i.Id.Equals(locationDto.CategoryId))
@@ -146,7 +146,7 @@ namespace MosMap_API.Services
             location.Category = category;
 
             _context.Update(location);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return location;
         }

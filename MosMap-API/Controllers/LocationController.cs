@@ -32,12 +32,12 @@ namespace MosMap_API.Controllers
         /// <param name="categoryId"></param>
         /// <returns></returns>
         [HttpGet("categoryid/{categoryId}")]
-        public IActionResult GetAllLocationsByCategoryId(int categoryId)
+        public async Task<IActionResult> GetAllLocationsByCategoryId(int categoryId)
         {
             try
             {
                 // returns all locations from database
-                IEnumerable<Location> locations = _service.GetAllLocationsByCategoryId(categoryId);
+                IEnumerable<Location> locations = await _service.GetAllLocationsByCategoryId(categoryId);
                 // map location to locationdto
                 IEnumerable<LocationDto> locationsResult = _mapper.Map<IEnumerable<LocationDto>>(locations);
                 // Ok = status code 200
@@ -56,12 +56,12 @@ namespace MosMap_API.Controllers
         /// <param name="categoryId"></param>
         /// <returns></returns>
         [HttpGet("geojson/categoryid/{categoryId}")]
-        public IActionResult GetAllGeoJsonLocationsByCategoryId(int categoryId)
+        public async Task<IActionResult> GetAllGeoJsonLocationsByCategoryId(int categoryId)
         {
             try
             {
                 // returns all locations from database
-                IEnumerable<Location> locations = _service.GetAllLocationsByCategoryId(categoryId);
+                IEnumerable<Location> locations = await _service.GetAllLocationsByCategoryId(categoryId);
                 // map location to locationdto
                 IEnumerable<LocationDto> locationsDtos = _mapper.Map<IEnumerable<LocationDto>>(locations);
 
@@ -84,11 +84,11 @@ namespace MosMap_API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}", Name = "LocationById")]
-        public IActionResult GetLocationById(int id)
+        public async Task<IActionResult> GetLocationById(int id)
         {
             try
             {
-                Location location = _service.GetLocationById(id);
+                Location location = await _service.GetLocationById(id);
 
                 if (location == null)
                 {
@@ -114,11 +114,11 @@ namespace MosMap_API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("geojson/{id}", Name = "GeoJsonLocationById")]
-        public IActionResult GetGeoJsonLocationById(int id)
+        public async Task<IActionResult> GetGeoJsonLocationById(int id)
         {
             try
             {
-                Location location = _service.GetLocationById(id);
+                Location location = await _service.GetLocationById(id);
 
                 if (location == null)
                 {
@@ -143,12 +143,12 @@ namespace MosMap_API.Controllers
         #region in progress
         // implement return of Locations with multiple choosen categories (doesn't work yet)
         [HttpGet("categoryids/{categoryIds}")]
-        public IActionResult GetAllLocationsByCategoryIds([FromQuery] int[] categoryIds)
+        public async Task<IActionResult> GetAllLocationsByCategoryIds([FromQuery] int[] categoryIds)
         {
             try
             {
                 // returns all locations from database
-                IEnumerable<Location> locations = _service.GetAllLocationsByCategoryIds(categoryIds);
+                IEnumerable<Location> locations = await _service.GetAllLocationsByCategoryIds(categoryIds);
                 // map location to locationdto
                 IEnumerable<LocationDto> locationsResult = _mapper.Map<IEnumerable<LocationDto>>(locations);
                 // Ok = status code 200
@@ -164,15 +164,15 @@ namespace MosMap_API.Controllers
 
         // implement return of locations with choosen subcategory; also implement with multiple choosen subcategories!
         [HttpGet("subcategoryid/{subcategoryId}")]
-        public IActionResult GetAllLocationsBySubCategoryId(int subcategoryId)
+        public async Task<IActionResult> GetAllLocationsBySubCategoryId(int subcategoryId)
         {
-            IEnumerable<Location> locations = _service.GetAllLocationsBySubCategoryId(subcategoryId);
+            IEnumerable<Location> locations = await _service.GetAllLocationsBySubCategoryId(subcategoryId);
             return Ok(locations);
         }
 
         // Create new Location --> only by admin/council (to be implemented!)
         [HttpPost]
-        public IActionResult CreateLocation([FromBody]LocationForCreationDto location)
+        public async Task<IActionResult> CreateLocation([FromBody]LocationForCreationDto location)
         {
             try
             {
@@ -188,7 +188,7 @@ namespace MosMap_API.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                Location createdLocation = _service.CreateLocation(location);
+                Location createdLocation = await _service.CreateLocation(location);
 
                 LocationDto createdLocationDto = _mapper.Map<LocationDto>(createdLocation);
 
@@ -203,7 +203,7 @@ namespace MosMap_API.Controllers
 
         // Edit location --> only by admin/council (to be implemented!)
         [HttpPut("{id}")]
-        public IActionResult EditLocation(int id, [FromBody] LocationForUpdateDto location)
+        public async Task<IActionResult> EditLocation(int id, [FromBody] LocationForUpdateDto location)
         {
             try
             {
@@ -219,14 +219,14 @@ namespace MosMap_API.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                Location locationEntity = _service.GetLocationById(id);
+                Location locationEntity = await _service.GetLocationById(id);
                 if (locationEntity == null)
                 {
                     // location with id hasn't been found in db
                     return NotFound();
                 }
 
-                Location updatedLocation = _service.UpdateLocation(id, location);
+                Location updatedLocation = await _service.UpdateLocation(id, location);
 
                 LocationDto updatedLocationDto = _mapper.Map<LocationDto>(locationEntity);
 
@@ -241,11 +241,11 @@ namespace MosMap_API.Controllers
 
         // Delete location --> only by admin/council (to be implemented!)
         [HttpDelete("{id}")]
-        public IActionResult DeleteLocation(int id)
+        public async Task<IActionResult> DeleteLocation(int id)
         {
             try
             {
-                Location locationEntity = _service.GetLocationById(id);
+                Location locationEntity = await _service.GetLocationById(id);
                 if (locationEntity == null)
                 {
                     // loaction with id hasn't been found in db

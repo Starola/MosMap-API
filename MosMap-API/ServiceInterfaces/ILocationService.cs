@@ -9,16 +9,16 @@ namespace MosMap_API.ServiceInterfaces
 {
     public interface ILocationService
     {
-        IEnumerable<Location> GetAllLocationsByCategoryId(int categoryId);
-        IEnumerable<Location> GetAllLocationsByCategoryIds(int[] categoryIds);
-        IEnumerable<Location> GetAllLocationsBySubCategoryId(int subcategoryId);
-        Location GetLocationById(int id);
+        Task <IEnumerable<Location>> GetAllLocationsByCategoryId(int categoryId);
+        Task <IEnumerable<Location>> GetAllLocationsByCategoryIds(int[] categoryIds);
+        Task <IEnumerable<Location>> GetAllLocationsBySubCategoryId(int subcategoryId);
+        Task<Location> GetLocationById(int id);
 
-        Location CreateLocation(LocationForCreationDto locationDto);
+        Task<Location> CreateLocation(LocationForCreationDto locationDto);
 
-        Location UpdateLocation(int id, LocationForUpdateDto locationDto);
+        Task<Location> UpdateLocation(int id, LocationForUpdateDto locationDto);
         void DeleteLocation(Location location);
 
-        Location CreateLocationByUser(LocationForCreationDto locationDto);
+        Task<Location> CreateLocationByUser(LocationForCreationDto locationDto);
     }
 }

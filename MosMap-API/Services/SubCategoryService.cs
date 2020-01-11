@@ -35,8 +35,8 @@ namespace MosMap_API.Services
                 Category = category
             };
 
-            _context.Add(subCategory);
-            _context.SaveChanges();
+            await _context.AddAsync(subCategory);
+            await _context.SaveChangesAsync();
 
             return subCategory;
             /*_context.Add(subCategory);
@@ -93,7 +93,7 @@ namespace MosMap_API.Services
             subCategory.Category = category;
 
             _context.Update(subCategory);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return subCategory;
         }
