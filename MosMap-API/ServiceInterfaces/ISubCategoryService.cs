@@ -9,10 +9,10 @@ namespace MosMap_API.ServiceInterfaces
 {
     public interface ISubCategoryService
     {
-        public IEnumerable<SubCategory> GetAllSubCategories(int categoryId);
-        public SubCategory GetSubCategoryById(int id);
-        public SubCategory CreateSubCategory(SubCategoryForCreationDto subCategoryDto);
-        public SubCategory UpdateSubCategory(int id, SubCategoryForUpdateDto subCategoryDto);
-        public void DeleteSubCategory(SubCategory subCategory);
+        IEnumerable<SubCategory> GetAllSubCategories(int categoryId);
+        SubCategory GetSubCategoryById(int id);
+        SubCategory CreateSubCategory(SubCategoryForCreationDto subCategoryDto);
+        SubCategory UpdateSubCategory(int id, SubCategoryForUpdateDto subCategoryDto);
+        void DeleteSubCategory(SubCategory subCategory);
     }
 }
