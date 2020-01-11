@@ -46,6 +46,23 @@ namespace MosMap_API.Services
             return location;
         }
 
+        public Location CreateLocationByUser(LocationForCreationDto locationDto)
+        {
+            Location location = new Location
+            {
+                LocationDescription = locationDto.LocationDescription,
+                LocationName = locationDto.LocationName,
+                Latitude = locationDto.Latitude,
+                Longitude = locationDto.Longitude,
+                UserSuggestedLocation = true
+            };
+
+            _context.Add(location);
+            _context.SaveChanges();
+
+            return location;
+        }
+
         public void DeleteLocation(Location location)
         {
             _context.Remove(location);

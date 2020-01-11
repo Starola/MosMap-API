@@ -12,8 +12,8 @@ namespace MosMap_API.Dtos
         public string Latitude { get; set; }
         public string Longitude { get; set; }
 
-        /*// true: User suggested location; false: default location
-        public bool UserSuggestedLocation { get; set; }
+        // true: User suggested location; false: default location
+        //public bool UserSuggestedLocation { get; set; }
 
         /* true: User suggested location was checked and permitted by admin and will be shown in map
         *       if admin didn't permit location, location will be deleted

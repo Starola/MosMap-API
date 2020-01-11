@@ -170,6 +170,7 @@ namespace MosMap_API.Controllers
             return Ok(locations);
         }
 
+        // Create new Location --> only by admin/council (to be implemented!)
         [HttpPost]
         public IActionResult CreateLocation([FromBody]LocationForCreationDto location)
         {
@@ -200,6 +201,7 @@ namespace MosMap_API.Controllers
             }
         }
 
+        // Edit location --> only by admin/council (to be implemented!)
         [HttpPut("{id}")]
         public IActionResult EditLocation(int id, [FromBody] LocationForUpdateDto location)
         {
@@ -237,6 +239,7 @@ namespace MosMap_API.Controllers
             }
         }
 
+        // Delete location --> only by admin/council (to be implemented!)
         [HttpDelete("{id}")]
         public IActionResult DeleteLocation(int id)
         {
