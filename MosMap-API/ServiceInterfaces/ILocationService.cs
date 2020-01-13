@@ -9,16 +9,46 @@ namespace MosMap_API.ServiceInterfaces
 {
     public interface ILocationService
     {
-        Task <IEnumerable<Location>> GetAllLocationsByCategoryId(int categoryId);
-        Task <IEnumerable<Location>> GetAllLocationsByCategoryIds(int[] categoryIds);
-        Task <IEnumerable<Location>> GetAllLocationsBySubCategoryId(int subcategoryId);
-        Task<Location> GetLocationById(int id);
+        /// <summary>
+        /// Returns list of locations with passed categoryid
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        Task<IEnumerable<LocationDto>> GetAllLocationsByCategoryId(int categoryId);
 
+        /// <summary>
+        /// Returns location with passed locationid
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<LocationDto> GetLocationById(int id);
+
+        /// <summary>
+        /// Returns location as GeoJson
+        /// </summary>
+        /// <param name="locationDto"></param>
+        /// <returns></returns>
+        Task<LocationAsGeoJsonDto> GetLocationsAsGeoJson(LocationDto locationDto);
+
+        /// <summary>
+        /// Returns list of locations as GeoJson
+        /// </summary>
+        /// <param name="locationDtos"></param>
+        /// <returns></returns>
+        Task<IEnumerable<LocationAsGeoJsonDto>> GetLocationsAsGeoJson(IEnumerable<LocationDto> locationDtos);
+
+        #region in progress
+        Task<IEnumerable<Location>> GetAllLocationsByCategoryIds(int[] categoryIds);
+        Task<IEnumerable<Location>> GetAllLocationsBySubCategoryId(int subcategoryId);
+        
         Task<Location> CreateLocation(LocationForCreationDto locationDto);
 
         Task<Location> UpdateLocation(int id, LocationForUpdateDto locationDto);
-        void DeleteLocation(Location location);
+        void DeleteLocation(LocationDto location);
 
         Task<Location> CreateLocationByUser(LocationForCreationDto locationDto);
+        #endregion
+
+
     }
 }

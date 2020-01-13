@@ -37,9 +37,8 @@ namespace MosMap_API.Controllers
             try
             {
                 // returns all locations from database
-                IEnumerable<Location> locations = await _service.GetAllLocationsByCategoryId(categoryId);
-                // map location to locationdto
-                IEnumerable<LocationDto> locationsResult = _mapper.Map<IEnumerable<LocationDto>>(locations);
+                IEnumerable<LocationDto> locationsResult = await _service.GetAllLocationsByCategoryId(categoryId);
+
                 // Ok = status code 200
                 return Ok(locationsResult);
             }
@@ -61,12 +60,10 @@ namespace MosMap_API.Controllers
             try
             {
                 // returns all locations from database
-                IEnumerable<Location> locations = await _service.GetAllLocationsByCategoryId(categoryId);
-                // map location to locationdto
-                IEnumerable<LocationDto> locationsDtos = _mapper.Map<IEnumerable<LocationDto>>(locations);
+                IEnumerable<LocationDto> locationsDtos = await _service.GetAllLocationsByCategoryId(categoryId);
 
                 // Convert locations to geojson format
-                List<LocationAsGeoJsonDto> locationsResult = ConvertLocationDtoToGeoJson(locationsDtos);
+                IEnumerable <LocationAsGeoJsonDto> locationsResult = await _service.GetLocationsAsGeoJson(locationsDtos);
 
                 // Ok = status code 200
                 return Ok(locationsResult);
@@ -88,7 +85,7 @@ namespace MosMap_API.Controllers
         {
             try
             {
-                Location location = await _service.GetLocationById(id);
+                LocationDto location = await _service.GetLocationById(id);
 
                 if (location == null)
                 {
@@ -97,8 +94,8 @@ namespace MosMap_API.Controllers
                 }
                 else
                 {
-                    LocationDto locationResult = _mapper.Map<LocationDto>(location);
-                    return Ok(locationResult);
+                    //LocationDto locationResult = _mapper.Map<LocationDto>(location);
+                    return Ok(location);
                 }
             }
             catch (Exception ex)
@@ -118,7 +115,7 @@ namespace MosMap_API.Controllers
         {
             try
             {
-                Location location = await _service.GetLocationById(id);
+                LocationDto location = await _service.GetLocationById(id);
 
                 if (location == null)
                 {
@@ -127,8 +124,7 @@ namespace MosMap_API.Controllers
                 }
                 else
                 {
-                    LocationDto locationDto = _mapper.Map<LocationDto>(location);
-                    LocationAsGeoJsonDto locationResult = ConvertLocationDtoToGeoJson(locationDto);
+                    LocationAsGeoJsonDto locationResult = await _service.GetLocationsAsGeoJson(location);
                     return Ok(locationResult);
                 }
             }
@@ -219,7 +215,7 @@ namespace MosMap_API.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                Location locationEntity = await _service.GetLocationById(id);
+                LocationDto locationEntity = await _service.GetLocationById(id);
                 if (locationEntity == null)
                 {
                     // location with id hasn't been found in db
@@ -245,7 +241,7 @@ namespace MosMap_API.Controllers
         {
             try
             {
-                Location locationEntity = await _service.GetLocationById(id);
+                LocationDto locationEntity = await _service.GetLocationById(id);
                 if (locationEntity == null)
                 {
                     // loaction with id hasn't been found in db
@@ -265,44 +261,8 @@ namespace MosMap_API.Controllers
         #endregion
 
 
-        /// <summary>
-        /// Converts LocationDto to LocationAsGeoJsonDto
-        /// </summary>
-        /// <param name="locationDto"></param>
-        /// <returns></returns>
-        private LocationAsGeoJsonDto ConvertLocationDtoToGeoJson(LocationDto locationDto)
-        {
-            LocationAsGeoJsonDto loc = new LocationAsGeoJsonDto();
-            loc.Geometry.Coordinates.SetValue(Convert.ToDouble(locationDto.Longitude, new CultureInfo("en-US")), 0);
-            loc.Geometry.Coordinates.SetValue(Convert.ToDouble(locationDto.Latitude, new CultureInfo("en-US")), 1);
-            loc.Properties.id = locationDto.Id;
-            loc.Properties.Name = locationDto.LocationName;
-            loc.Properties.Description = locationDto.LocationDescription;
 
-            return loc;
-        }
 
-        /// <summary>
-        /// Converts List of LocationDtos to List of LocationAsGeoJsonDtos
-        /// </summary>
-        /// <param name="locationDtos"></param>
-        /// <returns></returns>
-        private List<LocationAsGeoJsonDto> ConvertLocationDtoToGeoJson(IEnumerable<LocationDto> locationDtos)
-        {
-            List<LocationAsGeoJsonDto> locationsResult = new List<LocationAsGeoJsonDto>();
-            locationDtos.ToList().ForEach(i =>
-            {
-                LocationAsGeoJsonDto loc = new LocationAsGeoJsonDto();
-                loc.Geometry.Coordinates.SetValue(Convert.ToDouble(i.Longitude, new CultureInfo("en-US")), 0);
-                loc.Geometry.Coordinates.SetValue(Convert.ToDouble(i.Latitude, new CultureInfo("en-US")), 1);
-                loc.Properties.id = i.Id;
-                loc.Properties.Name = i.LocationName;
-                loc.Properties.Description = i.LocationDescription;
-                locationsResult.Add(loc);
-            });
-
-            return locationsResult;
-        }
 
 
     }
