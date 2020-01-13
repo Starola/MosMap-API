@@ -12,6 +12,8 @@ namespace MosMap_API.Models
         public string LocationDescription { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
+        
+        public string Address { get; set; }
 
         // true: User suggested location; false: default location
         public bool UserSuggestedLocation { get; set; }
@@ -19,7 +21,9 @@ namespace MosMap_API.Models
         *       if admin didn't permit location, location will be deleted
         * false: User suggested location was not checked by admin and will not be shown in map
         */
-        public bool ShowUserSuggestedLocation { get; set; }
+        public bool ShowLocation { get; set; }
+        
+        public bool LocationChecked { get; set; }
 
         public virtual User User { get; set; }
         public virtual Category Category { get; set; }
