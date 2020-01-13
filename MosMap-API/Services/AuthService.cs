@@ -51,6 +51,8 @@ namespace MosMap_API.Services
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            // Sets UserRole to "User"
+            user = await SetUserRole(user, 1); 
 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
@@ -66,6 +68,16 @@ namespace MosMap_API.Services
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
             
+        }
+
+        private async Task<User> SetUserRole(User user, int role)
+        {
+            if (await _context.Authorizations.AnyAsync(x => x.Id == role))
+            {
+                Authorization auth = await _context.Authorizations.FirstOrDefaultAsync(i => i.Id == role);
+                user.Authorization = auth;   
+            }
+            return user;
         }
         
         /*
