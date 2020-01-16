@@ -137,7 +137,7 @@ namespace MosMap_API.Controllers
 
 
         #region in progress
-        // implement return of Locations with multiple choosen categories (doesn't work yet)
+        /*// implement return of Locations with multiple choosen categories (doesn't work yet)
         [HttpGet("categoryids/{categoryIds}")]
         public async Task<IActionResult> GetAllLocationsByCategoryIds([FromQuery] int[] categoryIds)
         {
@@ -155,16 +155,16 @@ namespace MosMap_API.Controllers
                 // Something went wrong inside GetAllLocations action: {ex.Message}
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
-        }
+        }*/
 
 
-        // implement return of locations with choosen subcategory; also implement with multiple choosen subcategories!
+        /*// implement return of locations with choosen subcategory; also implement with multiple choosen subcategories!
         [HttpGet("subcategoryid/{subcategoryId}")]
         public async Task<IActionResult> GetAllLocationsBySubCategoryId(int subcategoryId)
         {
             IEnumerable<Location> locations = await _service.GetAllLocationsBySubCategoryId(subcategoryId);
             return Ok(locations);
-        }
+        }*/
 
         // Create new Location --> only by admin/council (to be implemented!)
         [HttpPost]
@@ -198,7 +198,7 @@ namespace MosMap_API.Controllers
         }
 
         // Edit location --> only by admin/council (to be implemented!)
-        [HttpPut("{id}")]
+        /*[HttpPut("{id}")]
         public async Task<IActionResult> EditLocation(int id, [FromBody] LocationForUpdateDto location)
         {
             try
@@ -233,10 +233,10 @@ namespace MosMap_API.Controllers
                 // Something went wrong inside UpdateLocation action
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
-        }
+        }*/
 
         // Delete location --> only by admin/council (to be implemented!)
-        [HttpDelete("{id}")]
+        /*[HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLocation(int id)
         {
             try
@@ -256,7 +256,7 @@ namespace MosMap_API.Controllers
                 // Something went wrong inside DeleteLocation action
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
-        }
+        }*/
 
         #endregion
 

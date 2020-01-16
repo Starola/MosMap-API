@@ -74,7 +74,7 @@ namespace MosMap_API.Services
 
         #region in progress!
         // Methode nochmal anpassen!
-        public async Task<IEnumerable<Location>> GetAllLocationsByCategoryIds(int[] categoryIds)
+        /*public async Task<IEnumerable<Location>> GetAllLocationsByCategoryIds(int[] categoryIds)
         {
             List<Location> locationResult = new List<Location>();
             List<Location> locations = await _context.Locations.ToListAsync();
@@ -89,9 +89,9 @@ namespace MosMap_API.Services
                 });
             }
             return locationResult;
-        }
+        }*/
 
-        // Methode nochmal anpassen!
+        /*// Methode nochmal anpassen!
         public async Task<IEnumerable<Location>> GetAllLocationsBySubCategoryId(int subcategoryId)
         {
             List<SubCategoryLocation> subcategoryLocations = await _context.SubCategoryLocations
@@ -112,7 +112,7 @@ namespace MosMap_API.Services
             });
 
             return locationsResult;
-        }
+        }*/
 
         // Methode nochmal anpassen!
         public async Task<Location> CreateLocation(LocationForCreationDto locationDto)
@@ -138,26 +138,8 @@ namespace MosMap_API.Services
             return location;
         }
 
-        // Methode noch implementieren/anpassen!
-        public async Task<Location> CreateLocationByUser(LocationForCreationDto locationDto)
-        {
-            throw new NotImplementedException();
-            /*
-            Location location = new Location
-            {
-                LocationDescription = locationDto.LocationDescription,
-                LocationName = locationDto.LocationName,
-                Latitude = locationDto.Latitude,
-                Longitude = locationDto.Longitude,
-                UserSuggestedLocation = true
-            };
-
-            await _context.AddAsync(location);
-            await _context.SaveChangesAsync();
-
-            return location;*/
-        }
-
+       
+        /*
         // Methode nochmal anpassen!
         public async Task<Location> UpdateLocation(int id, LocationForUpdateDto locationDto)
         {
@@ -176,8 +158,10 @@ namespace MosMap_API.Services
             await _context.SaveChangesAsync();
 
             return location;
-        }
+        }*/
 
+        
+        /*
         // Methode nochmal anpassen!
         public void DeleteLocation(LocationDto location)
         {
@@ -195,7 +179,7 @@ namespace MosMap_API.Services
             }
 
             _context.SaveChanges();
-        }
+        }*/
         #endregion
 
 
