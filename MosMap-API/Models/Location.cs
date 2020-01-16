@@ -25,7 +25,7 @@ namespace MosMap_API.Models
         
         public bool LocationChecked { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual ApplicationUser User { get; set; }
         public virtual Category Category { get; set; }
         public virtual ICollection<SubCategoryLocation> SubCategoryLocations { get; set; }
     }

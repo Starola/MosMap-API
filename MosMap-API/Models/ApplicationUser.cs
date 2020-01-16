@@ -2,7 +2,7 @@
 
 namespace MosMap_API.Models
 {
-    public class User
+    public class ApplicationUser
     {
         public int Id { get; set; }
         public string Username { get; set; }

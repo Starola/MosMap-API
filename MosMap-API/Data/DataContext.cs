@@ -12,7 +12,7 @@ namespace MosMap_API.Data
             optionsBuilder.UseMySQL("server=localhost;database=library;user=localhost;password=");
         }*/
         public DbSet<TestModel> TestModels { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Authorization> Authorizations { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Category> Categories { get; set; }

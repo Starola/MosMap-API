@@ -26,7 +26,7 @@ namespace MosMap_API.Services
         /*
          * Methods for register process
          */
-        public async Task<User> Register(UserForRegisterDto userForRegisterDto)
+        public async Task<ApplicationUser> Register(UserForRegisterDto userForRegisterDto)
         {
             //convert the username to lowercase (not possible Matt und matt)
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
@@ -35,11 +35,10 @@ namespace MosMap_API.Services
             if (await UserExists(userForRegisterDto.Username))
             {
                 throw new Exception("Username existiert bereits");
-                return null;
             }
 
 
-            var userToCreate = new User
+            var userToCreate = new ApplicationUser
             {
                 Username = userForRegisterDto.Username
             };
@@ -47,7 +46,7 @@ namespace MosMap_API.Services
 
             return createdUser;
         }
-        private async Task<User> CreateUserToRegister(User user, string password)
+        private async Task<ApplicationUser> CreateUserToRegister(ApplicationUser user, string password)
         {
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -57,7 +56,7 @@ namespace MosMap_API.Services
             // Sets UserRole to "User"
             user = await SetUserRole(user, 1); 
 
-            await _context.Users.AddAsync(user);
+            await _context.ApplicationUser.AddAsync(user);
             await _context.SaveChangesAsync();
 
             return user;
@@ -73,7 +72,7 @@ namespace MosMap_API.Services
             
         }
 
-        private async Task<User> SetUserRole(User user, int role)
+        private async Task<ApplicationUser> SetUserRole(ApplicationUser user, int role)
         {
             if (await _context.Authorizations.AnyAsync(x => x.Id == role))
             {
@@ -98,10 +97,10 @@ namespace MosMap_API.Services
             return token;
         }
         
-        private async Task<User> GetUserForLogin(string username, string password)
+        private async Task<ApplicationUser> GetUserForLogin(string username, string password)
         {
             //returns User with given username
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await _context.ApplicationUser.FirstOrDefaultAsync(x => x.Username == username);
             if (user == null)
             {
                 return null;
@@ -116,7 +115,7 @@ namespace MosMap_API.Services
         }
         
 
-        private SecurityToken CreateToken(User user)
+        private SecurityToken CreateToken(ApplicationUser user)
         {
             //The information in claim in the token can be accessed 
             var claims = new[]
@@ -160,7 +159,7 @@ namespace MosMap_API.Services
         */
         public async Task<bool> UserExists(string username)
         {
-            if (await _context.Users.AnyAsync(x => x.Username == username))
+            if (await _context.ApplicationUser.AnyAsync(x => x.Username == username))
                 return true;
             return false;
         }

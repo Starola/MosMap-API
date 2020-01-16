@@ -58,16 +58,20 @@
           <e p="20191214110518_AddedColumnsInLocationEntity.Designer.cs" t="Include" />
           <e p="20200113193250_ModiefiedLocations.cs" t="Include" />
           <e p="20200113193250_ModiefiedLocations.Designer.cs" t="Include" />
+          <e p="20200116142226_renamedUser.cs" t="Include" />
+          <e p="20200116142226_renamedUser.Designer.cs" t="Include" />
+          <e p="20200116142641_fixedUser.cs" t="Include" />
+          <e p="20200116142641_fixedUser.Designer.cs" t="Include" />
           <e p="DataContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
+          <e p="ApplicationUser.cs" t="Include" />
           <e p="Authorization.cs" t="Include" />
           <e p="Category.cs" t="Include" />
           <e p="Location.cs" t="Include" />
           <e p="SubCategory.cs" t="Include" />
           <e p="SubCategoryLocation.cs" t="Include" />
           <e p="TestModel.cs" t="Include" />
-          <e p="User.cs" t="Include" />
         </e>
         <e p="MosMap-API.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">

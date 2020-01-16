@@ -12,6 +12,6 @@ namespace MosMap_API.Models
         public bool Council { get; set; }
         public bool User { get; set; }
 
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<ApplicationUser> Users { get; set; }
     }
 }
