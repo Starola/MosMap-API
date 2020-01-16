@@ -33,6 +33,9 @@
           <e p="UserForLoginDto.cs" t="Include" />
           <e p="UserForRegisterDto.cs" t="Include" />
         </e>
+        <e p="Helpers" t="Include">
+          <e p="Extensions.cs" t="Include" />
+        </e>
         <e p="MappingProfile.cs" t="Include" />
         <e p="Migrations" t="Include">
           <e p="20191208150602_InitialMigration.cs" t="Include" />
