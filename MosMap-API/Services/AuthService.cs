@@ -33,7 +33,10 @@ namespace MosMap_API.Services
             
             //checks if user already exists
             if (await UserExists(userForRegisterDto.Username))
+            {
+                throw new Exception("Username existiert bereits");
                 return null;
+            }
 
 
             var userToCreate = new User
