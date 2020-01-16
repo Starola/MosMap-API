@@ -13,6 +13,8 @@ namespace MosMap_API.Dtos
         public string Latitude { get; set; }
         public string Longitude { get; set; }
 
+        public string Address { get; set; }
+
         public List<int> SubCategoryIds { get; set; }
 
     }
