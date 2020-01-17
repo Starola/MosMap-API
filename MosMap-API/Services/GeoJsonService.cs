@@ -19,6 +19,7 @@ namespace MosMap_API.Services
             loc.Properties.Name = locationDto.LocationName;
             loc.Properties.Description = locationDto.LocationDescription;
             loc.Properties.SubCategoryIds = locationDto.SubCategoryIds;
+            loc.Properties.Address = locationDto.Address;
 
             return loc;
         }
@@ -35,6 +36,7 @@ namespace MosMap_API.Services
                 loc.Properties.Name = i.LocationName;
                 loc.Properties.Description = i.LocationDescription;
                 loc.Properties.SubCategoryIds = i.SubCategoryIds;
+                loc.Properties.Address = i.Address;
                 locationsResult.Add(loc);
             });
 

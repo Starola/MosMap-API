@@ -11,9 +11,10 @@ namespace MosMap_API.Dtos
         public string LocationDescription { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
+        public string Address { get; set; }
 
         public int CategoryId {get; set;}
-        // public List<int> SubCategoryIds {get; set;}
+        public List<int> SubCategoryIds {get; set;}
         // User?
     }
 }
