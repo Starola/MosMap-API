@@ -9,6 +9,6 @@ namespace MosMap_API.ServiceInterfaces
     public interface IAdminService
     {
         Task<IEnumerable<LocationForAdminDto>> GetAllUncheckedLocations();
-        void AcceptLocation(); 
+        void AcceptLocation(LocationForAcceptDto locationForAcceptDto); 
     }
 }

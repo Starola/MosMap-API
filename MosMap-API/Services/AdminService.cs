@@ -25,9 +25,17 @@ namespace MosMap_API.Services
             _mapper = mapper;
         }
 
-        public void AcceptLocation()
+        public void AcceptLocation(LocationForAcceptDto locationForAcceptDto)
         {
-            throw new NotImplementedException();
+            Location location = _context.Locations.FirstOrDefault(i => i.Id.Equals(locationForAcceptDto.LocationId));
+            location.LocationChecked = true;
+
+            if (locationForAcceptDto.Accepted)
+            {
+                location.ShowLocation = true;
+            }
+
+            _context.SaveChanges();
         }
 
         public async Task<IEnumerable<LocationForAdminDto>> GetAllUncheckedLocations()

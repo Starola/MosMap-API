@@ -42,5 +42,20 @@ namespace MosMap_API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpPost("acceptlocations")]
+        public async Task<IActionResult> AcceptLocation([FromBody] LocationForAcceptDto locationForAcceptDto)
+        {
+            try
+            {
+                _service.AcceptLocation(locationForAcceptDto);
+
+                return Ok("Location was checked by admin");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }
