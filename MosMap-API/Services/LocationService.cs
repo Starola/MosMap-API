@@ -30,11 +30,9 @@ namespace MosMap_API.Services
 
         public async Task<IEnumerable<LocationDto>> GetAllLocationsByCategoryId(int categoryId)
         {
-            /*return await _context.Locations
-                .Where(i => i.Category.Id.Equals(categoryId))
-                .ToListAsync();*/
-
-            List<Location> locations = await _context.Locations.Where(i => i.Category.Id.Equals(categoryId)).ToListAsync();
+            List<Location> locations = await _context.Locations
+                .Where(i => i.Category.Id.Equals(categoryId) && i.ShowLocation)
+                .ToListAsync();
             List<LocationDto> locationsResult = _mapper.Map<List<LocationDto>>(locations);
             locationsResult.ForEach(i =>
             {
@@ -53,6 +51,15 @@ namespace MosMap_API.Services
             //return await _context.Locations.FirstOrDefaultAsync(i => i.Id.Equals(id));
 
             Location location = await _context.Locations.FirstOrDefaultAsync(i => i.Id.Equals(id));
+            if(location == null)
+            {
+                return null;
+            }
+            if(!location.ShowLocation)
+            {
+                return null;
+            }
+
             LocationDto locationDto = _mapper.Map<LocationDto>(location);
             //locationDto.CategoryId = location.Category.Id;
             locationDto.SubCategoryIds = await _context.SubCategoryLocations
