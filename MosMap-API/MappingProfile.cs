@@ -26,6 +26,8 @@ namespace MosMap_API
             // Location:
             CreateMap<Location, LocationDto>();
 
+            CreateMap<Location, LocationForAdminDto>();
+
         }
     }
 }

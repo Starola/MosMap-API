@@ -46,6 +46,7 @@ namespace MosMap_API
             services.AddScoped<ISubCategoryService, SubCategoryService>();
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IGeoJsonService, GeoJsonService>();
+            services.AddScoped<IAdminService, AdminService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
