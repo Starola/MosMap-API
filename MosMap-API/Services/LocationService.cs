@@ -35,9 +35,10 @@ namespace MosMap_API.Services
                 .ToListAsync();*/
 
             List<Location> locations = await _context.Locations.Where(i => i.Category.Id.Equals(categoryId)).ToListAsync();
-            List <LocationDto> locationsResult = _mapper.Map<List<LocationDto>>(locations);
+            List<LocationDto> locationsResult = _mapper.Map<List<LocationDto>>(locations);
             locationsResult.ForEach(i =>
             {
+                //i.CategoryId = categoryId;
                 i.SubCategoryIds = _context.SubCategoryLocations
                 .Where(j => j.Location.Id.Equals(i.Id))
                 .Select(j => j.SubCategory.Id)
@@ -53,6 +54,7 @@ namespace MosMap_API.Services
 
             Location location = await _context.Locations.FirstOrDefaultAsync(i => i.Id.Equals(id));
             LocationDto locationDto = _mapper.Map<LocationDto>(location);
+            //locationDto.CategoryId = location.Category.Id;
             locationDto.SubCategoryIds = await _context.SubCategoryLocations
                 .Where(i => i.Location.Id.Equals(locationDto.Id))
                 .Select(j => j.SubCategory.Id)
@@ -73,6 +75,52 @@ namespace MosMap_API.Services
 
 
         #region in progress!
+
+        public async Task<Location> CreateLocation(LocationForCreationDto locationDto)
+        {
+            // Create new location with data from locationdto
+            Location location = new Location
+            {
+                LocationDescription = locationDto.LocationDescription,
+                LocationName = locationDto.LocationName,
+                Latitude = locationDto.Latitude,
+                Longitude = locationDto.Longitude,
+                Address = locationDto.Address,
+                Category = await _context.Categories.FirstOrDefaultAsync(i => i.Id.Equals(locationDto.CategoryId)),
+                UserSuggestedLocation = true,
+                LocationChecked = false,
+                ShowLocation = false,
+            };
+
+            // check, if user is admin, council
+            if (/*user == admin || user == council*/ true)
+            {
+                location.UserSuggestedLocation = false;
+                location.LocationChecked = true;
+                location.ShowLocation = true;
+            }
+
+            await _context.AddAsync(location);
+            await _context.SaveChangesAsync();
+
+            // connect location with subcategories
+            foreach (int id in locationDto.SubCategoryIds)
+            {
+                SubCategoryLocation subCategoryLocation = new SubCategoryLocation
+                {
+                    Location = location,
+                    SubCategory = _context.SubCategories.FirstOrDefault(i => i.Id.Equals(id))
+                };
+                _context.SubCategoryLocations.Add(subCategoryLocation);
+                _context.SaveChanges();
+            }
+
+            return location;
+        }
+        #endregion
+
+
+        #region further methods (not used)
         // Methode nochmal anpassen!
         /*public async Task<IEnumerable<Location>> GetAllLocationsByCategoryIds(int[] categoryIds)
         {
@@ -114,31 +162,6 @@ namespace MosMap_API.Services
             return locationsResult;
         }*/
 
-        // Methode nochmal anpassen!
-        public async Task<Location> CreateLocation(LocationForCreationDto locationDto)
-        {
-            Category category = await _context.Categories.FirstOrDefaultAsync(i => i.Id.Equals(locationDto.CategoryId));
-
-            /*SubCategory subCategory = _context.SubCategories
-                .Where(i => i.Id.Equals(locationDto.SubCategoryId))
-                .FirstOrDefault();*/
-
-            Location location = new Location
-            {
-                LocationDescription = locationDto.LocationDescription,
-                LocationName = locationDto.LocationName,
-                Latitude = locationDto.Latitude,
-                Longitude = locationDto.Longitude,
-                Category = category
-            };
-
-            await _context.AddAsync(location);
-            await _context.SaveChangesAsync();
-
-            return location;
-        }
-
-       
         /*
         // Methode nochmal anpassen!
         public async Task<Location> UpdateLocation(int id, LocationForUpdateDto locationDto)
@@ -160,7 +183,7 @@ namespace MosMap_API.Services
             return location;
         }*/
 
-        
+
         /*
         // Methode nochmal anpassen!
         public void DeleteLocation(LocationDto location)

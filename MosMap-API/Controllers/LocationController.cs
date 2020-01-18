@@ -137,6 +137,39 @@ namespace MosMap_API.Controllers
 
 
         #region in progress
+        // Create new Location (to be implemented!)
+        [HttpPost]
+        public async Task<IActionResult> CreateLocation([FromBody]LocationForCreationDto location)
+        {
+            try
+            {
+                if (location == null)
+                {
+                    // location object sent from client is null
+                    return BadRequest("Location object is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    // Invalid location object sent from client
+                    return BadRequest("Invalid model object");
+                }
+
+                Location createdLocation = await _service.CreateLocation(location);
+
+                LocationDto createdLocationDto = await _service.GetLocationById(createdLocation.Id);
+
+                return CreatedAtRoute("LocationById", new { id = createdLocationDto.Id }, createdLocationDto);
+            }
+            catch (Exception ex)
+            {
+                //Something went wrong inside CreateLocation action
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        #endregion
+
+        #region further methods (not used)
         /*// implement return of Locations with multiple choosen categories (doesn't work yet)
         [HttpGet("categoryids/{categoryIds}")]
         public async Task<IActionResult> GetAllLocationsByCategoryIds([FromQuery] int[] categoryIds)
@@ -166,36 +199,7 @@ namespace MosMap_API.Controllers
             return Ok(locations);
         }*/
 
-        // Create new Location --> only by admin/council (to be implemented!)
-        [HttpPost]
-        public async Task<IActionResult> CreateLocation([FromBody]LocationForCreationDto location)
-        {
-            try
-            {
-                if (location == null)
-                {
-                    // location object sent from client is null
-                    return BadRequest("Location object is null");
-                }
 
-                if (!ModelState.IsValid)
-                {
-                    // Invalid location object sent from client
-                    return BadRequest("Invalid model object");
-                }
-
-                Location createdLocation = await _service.CreateLocation(location);
-
-                LocationDto createdLocationDto = _mapper.Map<LocationDto>(createdLocation);
-
-                return CreatedAtRoute("LocationById", new { id = createdLocationDto.Id }, createdLocationDto);
-            }
-            catch (Exception ex)
-            {
-                //Something went wrong inside CreateLocation action
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
 
         // Edit location --> only by admin/council (to be implemented!)
         /*[HttpPut("{id}")]
