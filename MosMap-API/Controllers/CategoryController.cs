@@ -30,7 +30,6 @@ namespace MosMap_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
-            return Ok(_user.IsAdmin());
             try
             {
                 // returns all categories from database
