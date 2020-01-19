@@ -9,8 +9,8 @@ using MosMap_API.Data;
 namespace MosMap_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200113193250_ModiefiedLocations")]
-    partial class ModiefiedLocations
+    [Migration("20200119181105_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,20 +19,39 @@ namespace MosMap_API.Migrations
                 .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("MosMap_API.Models.ApplicationUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AuthorizationId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("longblob");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("longblob");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorizationId");
+
+                    b.ToTable("ApplicationUser");
+                });
+
             modelBuilder.Entity("MosMap_API.Models.Authorization", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<bool>("Admin")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("Council")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("User")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<string>("Role")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -158,29 +177,11 @@ namespace MosMap_API.Migrations
                     b.ToTable("TestModels");
                 });
 
-            modelBuilder.Entity("MosMap_API.Models.User", b =>
+            modelBuilder.Entity("MosMap_API.Models.ApplicationUser", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AuthorizationId")
-                        .HasColumnType("int");
-
-                    b.Property<byte[]>("PasswordHash")
-                        .HasColumnType("longblob");
-
-                    b.Property<byte[]>("PasswordSalt")
-                        .HasColumnType("longblob");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorizationId");
-
-                    b.ToTable("Users");
+                    b.HasOne("MosMap_API.Models.Authorization", "Authorization")
+                        .WithMany("Users")
+                        .HasForeignKey("AuthorizationId");
                 });
 
             modelBuilder.Entity("MosMap_API.Models.Location", b =>
@@ -189,7 +190,7 @@ namespace MosMap_API.Migrations
                         .WithMany("Locations")
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("MosMap_API.Models.User", "User")
+                    b.HasOne("MosMap_API.Models.ApplicationUser", "User")
                         .WithMany("Locations")
                         .HasForeignKey("UserId");
                 });
@@ -210,13 +211,6 @@ namespace MosMap_API.Migrations
                     b.HasOne("MosMap_API.Models.SubCategory", "SubCategory")
                         .WithMany("SubCategoryLocations")
                         .HasForeignKey("SubCategoryId");
-                });
-
-            modelBuilder.Entity("MosMap_API.Models.User", b =>
-                {
-                    b.HasOne("MosMap_API.Models.Authorization", "Authorization")
-                        .WithMany("Users")
-                        .HasForeignKey("AuthorizationId");
                 });
 #pragma warning restore 612, 618
         }

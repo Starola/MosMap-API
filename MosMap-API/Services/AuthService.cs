@@ -121,7 +121,8 @@ namespace MosMap_API.Services
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Username)
+                new Claim(ClaimTypes.Name, user.Username),
+                //new Claim( ClaimTypes.Role, user.Authorization.Role),
             };
             //server can check if the key is valid with key - this is encoded
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));

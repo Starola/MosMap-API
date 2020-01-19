@@ -48,14 +48,8 @@ namespace MosMap_API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<bool>("Admin")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("Council")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("User")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<string>("Role")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 

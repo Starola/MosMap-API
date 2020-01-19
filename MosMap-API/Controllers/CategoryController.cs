@@ -18,16 +18,19 @@ namespace MosMap_API.Controllers
     {
         private readonly ICategoryService _service;
         private IMapper _mapper;
+        private IUserService _user;
 
-        public CategoryController(IConfiguration config, ICategoryService service, IMapper mapper)
+        public CategoryController(IConfiguration config, ICategoryService service, IMapper mapper, IUserService user)
         {
             _service = service;
             _mapper = mapper;
+            _user = user;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
+            return Ok(_user.IsAdmin());
             try
             {
                 // returns all categories from database

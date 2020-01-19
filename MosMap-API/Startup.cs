@@ -47,6 +47,7 @@ namespace MosMap_API
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IGeoJsonService, GeoJsonService>();
             services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -63,6 +64,7 @@ namespace MosMap_API
             services.AddMvc(option => option.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAutoMapper(typeof(Startup));
         }
 

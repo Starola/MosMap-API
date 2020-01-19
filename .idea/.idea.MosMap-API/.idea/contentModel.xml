@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Lukas\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Lukas\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_MosMap-API.983640645.00" t="ExcludeRecursive" />
-    <e p="D:\Mosbach\Softwareporjekt\MosMap-API\MosMap-API" t="IncludeFlat">
+    <e p="C:\Users\chris\.Rider2019.2\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\chris\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\chris\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_MosMap-API.-1462434230.00" t="ExcludeRecursive" />
+    <e p="D:\Programmieren\MosMap-API" t="IncludeFlat">
       <e p="MosMap-API" t="IncludeRecursive">
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
+          <e p="AdminController.cs" t="Include" />
           <e p="AuthController.cs" t="Include" />
           <e p="CategoryController.cs" t="Include" />
           <e p="LocationController.cs" t="Include" />
@@ -24,6 +26,8 @@
           <e p="CategoryForUpdateDto.cs" t="Include" />
           <e p="LocationAsGeoJsonDto.cs" t="Include" />
           <e p="LocationDto.cs" t="Include" />
+          <e p="LocationForAcceptDto.cs" t="Include" />
+          <e p="LocationForAdminDto.cs" t="Include" />
           <e p="LocationForCreationDto.cs" t="Include" />
           <e p="LocationForUpdateDto.cs" t="Include" />
           <e p="SubCategoryDto.cs" t="Include" />
@@ -38,30 +42,8 @@
         </e>
         <e p="MappingProfile.cs" t="Include" />
         <e p="Migrations" t="Include">
-          <e p="20191208150602_InitialMigration.cs" t="Include" />
-          <e p="20191208150602_InitialMigration.Designer.cs" t="Include" />
-          <e p="20191208154859_AddedUserEntity.cs" t="Include" />
-          <e p="20191208154859_AddedUserEntity.Designer.cs" t="Include" />
-          <e p="20191214102327_AddedAuthorizationEntity.cs" t="Include" />
-          <e p="20191214102327_AddedAuthorizationEntity.Designer.cs" t="Include" />
-          <e p="20191214102535_AddedLocationEntity.cs" t="Include" />
-          <e p="20191214102535_AddedLocationEntity.Designer.cs" t="Include" />
-          <e p="20191214102730_AddedCategoryEntity.cs" t="Include" />
-          <e p="20191214102730_AddedCategoryEntity.Designer.cs" t="Include" />
-          <e p="20191214103057_FixedColumnNamesCategoryEntity.cs" t="Include" />
-          <e p="20191214103057_FixedColumnNamesCategoryEntity.Designer.cs" t="Include" />
-          <e p="20191214103536_AddedSubCategoryEntity.cs" t="Include" />
-          <e p="20191214103536_AddedSubCategoryEntity.Designer.cs" t="Include" />
-          <e p="20191214104511_AddedSubCategoryLocationEntity.cs" t="Include" />
-          <e p="20191214104511_AddedSubCategoryLocationEntity.Designer.cs" t="Include" />
-          <e p="20191214110518_AddedColumnsInLocationEntity.cs" t="Include" />
-          <e p="20191214110518_AddedColumnsInLocationEntity.Designer.cs" t="Include" />
-          <e p="20200113193250_ModiefiedLocations.cs" t="Include" />
-          <e p="20200113193250_ModiefiedLocations.Designer.cs" t="Include" />
-          <e p="20200116142226_renamedUser.cs" t="Include" />
-          <e p="20200116142226_renamedUser.Designer.cs" t="Include" />
-          <e p="20200116142641_fixedUser.cs" t="Include" />
-          <e p="20200116142641_fixedUser.Designer.cs" t="Include" />
+          <e p="20200119181105_Initial.cs" t="Include" />
+          <e p="20200119181105_Initial.Designer.cs" t="Include" />
           <e p="DataContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
@@ -86,18 +68,22 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="ServiceInterfaces" t="Include">
+          <e p="IAdminService.cs" t="Include" />
           <e p="IAuthService.cs" t="Include" />
           <e p="ICategoryService.cs" t="Include" />
           <e p="IGeoJsonService.cs" t="Include" />
           <e p="ILocationService.cs" t="Include" />
           <e p="ISubCategoryService.cs" t="Include" />
+          <e p="IUserService.cs" t="Include" />
         </e>
         <e p="Services" t="Include">
+          <e p="AdminService.cs" t="Include" />
           <e p="AuthService.cs" t="Include" />
           <e p="CategoryService.cs" t="Include" />
           <e p="GeoJsonService.cs" t="Include" />
           <e p="LocationService.cs" t="Include" />
           <e p="SubCategoryService.cs" t="Include" />
+          <e p="UserService.cs" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="WeatherForecast.cs" t="Include" />

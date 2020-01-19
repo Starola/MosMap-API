@@ -8,9 +8,7 @@ namespace MosMap_API.Models
     public class Authorization
     {
         public int Id { get; set; }
-        public bool Admin { get; set; }
-        public bool Council { get; set; }
-        public bool User { get; set; }
+        public string Role { get; set; }
 
         public virtual ICollection<ApplicationUser> Users { get; set; }
     }
