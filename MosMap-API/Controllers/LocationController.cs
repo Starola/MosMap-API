@@ -157,9 +157,10 @@ namespace MosMap_API.Controllers
 
                 Location createdLocation = await _service.CreateLocation(location);
 
-                LocationDto createdLocationDto = await _service.GetLocationById(createdLocation.Id);
+                //LocationDto createdLocationDto = await _service.GetLocationById(createdLocation.Id);
 
-                return CreatedAtRoute("LocationById", new { id = createdLocationDto.Id }, createdLocationDto);
+                //return CreatedAtRoute("LocationById", new { id = createdLocationDto.Id }, createdLocationDto);
+                return Ok("Location was created!");
             }
             catch (Exception ex)
             {
