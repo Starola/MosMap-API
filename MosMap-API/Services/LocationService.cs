@@ -16,14 +16,16 @@ namespace MosMap_API.Services
     {
         private readonly IConfiguration _config;
         private readonly DataContext _context;
-        private readonly IGeoJsonService _service;
+        private readonly IGeoJsonService _gjservice;
+        private readonly IUserService _uservice;
         private IMapper _mapper;
 
-        public LocationService(IConfiguration config, DataContext context, IGeoJsonService service, IMapper mapper)
+        public LocationService(IConfiguration config, DataContext context, IGeoJsonService gjservice, IUserService uservice, IMapper mapper)
         {
             _config = config;
             _context = context;
-            _service = service;
+            _gjservice = gjservice;
+            _uservice = uservice;
             _mapper = mapper;
         }
 
@@ -72,12 +74,12 @@ namespace MosMap_API.Services
 
         public async Task<LocationAsGeoJsonDto> GetLocationsAsGeoJson(LocationDto locationDto)
         {
-            return await _service.ConvertLocationDtoToGeoJson(locationDto);
+            return await _gjservice.ConvertLocationDtoToGeoJson(locationDto);
         }
 
         public async Task<IEnumerable<LocationAsGeoJsonDto>> GetLocationsAsGeoJson(IEnumerable<LocationDto> locationDtos)
         {
-            return await _service.ConvertLocationDtoToGeoJson(locationDtos);
+            return await _gjservice.ConvertLocationDtoToGeoJson(locationDtos);
         }
 
 
@@ -97,10 +99,11 @@ namespace MosMap_API.Services
                 UserSuggestedLocation = true,
                 LocationChecked = false,
                 ShowLocation = false,
+                User = await _context.ApplicationUser.FirstOrDefaultAsync(i => i.Id.Equals(_uservice.GetUserId()))
             };
 
             // check, if user is admin, council
-            if (/*user == admin || user == council*/ true)
+            if (_uservice.IsAdmin() || _uservice.IsCouncil())
             {
                 location.UserSuggestedLocation = false;
                 location.LocationChecked = true;
