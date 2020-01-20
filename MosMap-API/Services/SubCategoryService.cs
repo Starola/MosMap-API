@@ -63,8 +63,10 @@ namespace MosMap_API.Services
 
         public async Task<IEnumerable<SubCategory>> GetAllSubCategories(int categoryId)
         {
-            return _context.SubCategories
-                .Where(i => i.Category.Id.Equals(categoryId));
+            return await _context.SubCategories
+                .Where(i => i.Category.Id.Equals(categoryId))
+                .Include(i => i.Category)
+                .ToListAsync();
         }
 
         public async Task<SubCategory> GetSubCategoryById(int id)
@@ -73,10 +75,9 @@ namespace MosMap_API.Services
                 .Where(i => i.Id.Equals(id))
                 .FirstOrDefault();*/
 
-            return _context.SubCategories
-                .Where(i => i.Id.Equals(id))
+            return await _context.SubCategories
                 .Include(i => i.Category)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync(i => i.Id.Equals(id));
 
         }
 

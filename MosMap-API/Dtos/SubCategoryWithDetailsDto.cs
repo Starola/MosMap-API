@@ -8,6 +8,7 @@ namespace MosMap_API.Dtos
 {
     public class SubCategoryWithDetailsDto
     {
+        public int Id { get; set; }
         public string SubCategoryName { get; set; }
         public string SubCategoryDescription { get; set; }
 
