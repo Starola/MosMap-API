@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -72,6 +73,7 @@ namespace MosMap_API.Controllers
         }
 
 
+        [Authorize(Roles = "administrator")]
         [HttpPost]
         public async Task<IActionResult> CreateNewCategory([FromBody]CategoryForCreationDto category)
         {
@@ -103,6 +105,7 @@ namespace MosMap_API.Controllers
             }
         }
 
+        [Authorize(Roles = "administrator")]
         [HttpPut("{id}")]
         public async Task<IActionResult> EditCategory(int id, [FromBody] CategoryForUpdateDto category)
         {
@@ -143,6 +146,7 @@ namespace MosMap_API.Controllers
             }
         }
 
+        [Authorize(Roles = "administrator")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
