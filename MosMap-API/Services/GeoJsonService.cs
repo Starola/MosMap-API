@@ -21,6 +21,7 @@ namespace MosMap_API.Services
             //loc.Properties.CategoryId = locationDto.CategoryId;
             loc.Properties.SubCategoryIds = locationDto.SubCategoryIds;
             loc.Properties.Address = locationDto.Address;
+            loc.Properties.UserSuggestedLocation = locationDto.UserSuggestedLocation;
 
             return loc;
         }
@@ -39,6 +40,7 @@ namespace MosMap_API.Services
                 //loc.Properties.CategoryId = i.CategoryId;
                 loc.Properties.SubCategoryIds = i.SubCategoryIds;
                 loc.Properties.Address = i.Address;
+                loc.Properties.UserSuggestedLocation = i.UserSuggestedLocation;
                 locationsResult.Add(loc);
             });
 
