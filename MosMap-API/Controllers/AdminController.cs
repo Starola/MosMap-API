@@ -9,9 +9,11 @@ using Microsoft.Extensions.Configuration;
 using MosMap_API.Models;
 using MosMap_API.ServiceInterfaces;
 using MosMap_API.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MosMap_API.Controllers
 {
+    [Authorize(Roles = "administrator")]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
