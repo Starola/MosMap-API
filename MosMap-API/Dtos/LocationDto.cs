@@ -17,7 +17,7 @@ namespace MosMap_API.Dtos
 
         public bool UserSuggestedLocation { get; set; }
 
-        //public int CategoryId { get; set; }
+        public int CategoryId { get; set; }
         public List<int> SubCategoryIds { get; set; }
 
     }

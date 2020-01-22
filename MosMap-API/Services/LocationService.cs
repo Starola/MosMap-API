@@ -34,6 +34,7 @@ namespace MosMap_API.Services
         {
             List<Location> locations = await _context.Locations
                 .Where(i => i.Category.Id.Equals(categoryId) && i.ShowLocation)
+                .Include(i => i.Category)
                 .ToListAsync();
             List<LocationDto> locationsResult = _mapper.Map<List<LocationDto>>(locations);
             locationsResult.ForEach(i =>
@@ -52,7 +53,7 @@ namespace MosMap_API.Services
         {
             //return await _context.Locations.FirstOrDefaultAsync(i => i.Id.Equals(id));
 
-            Location location = await _context.Locations.FirstOrDefaultAsync(i => i.Id.Equals(id));
+            Location location = await _context.Locations.Include(i => i.Category).FirstOrDefaultAsync(i => i.Id.Equals(id));
             if(location == null)
             {
                 return null;
