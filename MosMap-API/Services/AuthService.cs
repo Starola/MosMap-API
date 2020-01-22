@@ -100,7 +100,7 @@ namespace MosMap_API.Services
         private async Task<ApplicationUser> GetUserForLogin(string username, string password)
         {
             //returns User with given username
-            var user = await _context.ApplicationUser.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await _context.ApplicationUser.Include(i => i.Authorization).FirstOrDefaultAsync(x => x.Username == username);
             if (user == null)
             {
                 return null;
@@ -122,7 +122,7 @@ namespace MosMap_API.Services
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
-                //new Claim( ClaimTypes.Role, user.Authorization.Role),
+                new Claim( ClaimTypes.Role, user.Authorization.Role),
             };
             //server can check if the key is valid with key - this is encoded
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
