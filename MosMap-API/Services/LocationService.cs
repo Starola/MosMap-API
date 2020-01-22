@@ -87,13 +87,28 @@ namespace MosMap_API.Services
 
         public async Task<Location> CreateLocation(LocationForCreationDto locationDto)
         {
+
+            string latitudedto = locationDto.Latitude;
+            if (latitudedto.Contains(','))
+            {
+                latitudedto = latitudedto.Replace(',', '.');
+            }
+
+
+            string longitudedto = locationDto.Longitude;
+            if (longitudedto.Contains(','))
+            {
+                longitudedto = longitudedto.Replace(',', '.');
+            }
+
+
             // Create new location with data from locationdto
             Location location = new Location
             {
                 LocationDescription = locationDto.LocationDescription,
                 LocationName = locationDto.LocationName,
-                Latitude = locationDto.Latitude,
-                Longitude = locationDto.Longitude,
+                Latitude = /*locationDto.Latitude,*/ latitudedto,
+                Longitude = /*locationDto.Longitude,*/ longitudedto,
                 Address = locationDto.Address,
                 Category = await _context.Categories.FirstOrDefaultAsync(i => i.Id.Equals(locationDto.CategoryId)),
                 UserSuggestedLocation = true,
