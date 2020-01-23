@@ -115,15 +115,15 @@ namespace MosMap_API
                        .GetService<DataContext>();
             if (context.Authorizations.FirstOrDefault(i => i.Role.Equals("administrator")) == null)
             {
-                context.Authorizations.Add(new Models.Authorization() { Role = "administrator" });
+                context.Authorizations.Add(new Models.Authorization() { Role = "administrator", Id = 3 });
             }
             if (context.Authorizations.FirstOrDefault(i => i.Role.Equals("council")) == null)
             {
-                context.Authorizations.Add(new Models.Authorization() { Role = "council" });
+                context.Authorizations.Add(new Models.Authorization() { Role = "council", Id = 2 });
             }
             if (context.Authorizations.FirstOrDefault(i => i.Role.Equals("user")) == null)
             {
-                context.Authorizations.Add(new Models.Authorization() { Role = "user" });
+                context.Authorizations.Add(new Models.Authorization() { Role = "user", Id = 1 });
             }
             context.SaveChanges();
         }
