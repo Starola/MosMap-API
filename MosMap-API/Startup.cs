@@ -39,6 +39,9 @@ namespace MosMap_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
+            CheckAndCreateAuthRoles(services);
+
             services.AddControllers();
             services.AddCors();
             services.AddScoped<IAuthService, AuthService>();
@@ -103,6 +106,26 @@ namespace MosMap_API
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+
+        // checks if roles exist in db-table authorizations and creates them
+        private void CheckAndCreateAuthRoles(IServiceCollection services)
+        {
+            var context = services.BuildServiceProvider()
+                       .GetService<DataContext>();
+            if (context.Authorizations.FirstOrDefault(i => i.Role.Equals("administrator")) == null)
+            {
+                context.Authorizations.Add(new Models.Authorization() { Role = "administrator" });
+            }
+            if (context.Authorizations.FirstOrDefault(i => i.Role.Equals("council")) == null)
+            {
+                context.Authorizations.Add(new Models.Authorization() { Role = "council" });
+            }
+            if (context.Authorizations.FirstOrDefault(i => i.Role.Equals("user")) == null)
+            {
+                context.Authorizations.Add(new Models.Authorization() { Role = "user" });
+            }
+            context.SaveChanges();
         }
     }
 }
