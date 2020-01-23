@@ -28,7 +28,7 @@ namespace MosMap_API.Services
                 .Include(loc => loc.Locations)
                 .ToList();*/
 
-            return _context.Categories.ToList();
+            return await _context.Categories.ToListAsync();
         }
 
         public async Task<Category> GetCategoryById(int id)
@@ -39,7 +39,7 @@ namespace MosMap_API.Services
                 .Include(loc => loc.Locations)
                 .FirstOrDefault();*/
 
-            return _context.Categories.Where(i => i.Id.Equals(id)).FirstOrDefault();
+            return await _context.Categories.FirstOrDefaultAsync(i => i.Id.Equals(id));
         }
 
         public void CreateCategory(Category category)
