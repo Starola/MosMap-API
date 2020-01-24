@@ -38,6 +38,25 @@ namespace MosMap_API.Services
             _context.SaveChanges();
         }
 
+        public async Task<IEnumerable<LocationForAdminDto>> GetAllLocations()
+        {
+            List<Location> locations = await _context.Locations
+                .Include(i => i.Category)
+                .Include(i => i.User)
+                .ToListAsync();
+
+            List<LocationForAdminDto> locationsResult = _mapper.Map<List<LocationForAdminDto>>(locations);
+            locationsResult.ForEach(i =>
+            {
+                i.SubCategoryIds = _context.SubCategoryLocations
+                .Where(j => j.Location.Id.Equals(i.Id))
+                .Select(j => j.SubCategory.Id)
+                .ToList();
+            });
+
+            return locationsResult;
+        }
+
         public async Task<IEnumerable<LocationForAdminDto>> GetAllUncheckedLocations()
         {
             List<Location> locations = await _context.Locations

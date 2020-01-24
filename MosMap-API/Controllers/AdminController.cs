@@ -45,6 +45,25 @@ namespace MosMap_API.Controllers
             }
         }
 
+        [HttpGet("alllocations")]
+        public async Task<IActionResult> GetAllLocations()
+        {
+            try
+            {
+                // returns all locations from database
+                IEnumerable<LocationForAdminDto> locationsResult = await _service.GetAllLocations();
+
+                // Ok = status code 200
+                return Ok(locationsResult);
+            }
+            catch (Exception ex)
+            {
+                // Something went wrong inside GetAllLocations action: {ex.Message}
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
         [HttpPost("acceptlocations")]
         public async Task<IActionResult> AcceptLocation([FromBody] LocationForAcceptDto locationForAcceptDto)
         {
