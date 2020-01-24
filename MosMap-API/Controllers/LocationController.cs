@@ -10,6 +10,7 @@ using MosMap_API.Models;
 using MosMap_API.ServiceInterfaces;
 using MosMap_API.Dtos;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MosMap_API.Controllers
 {
@@ -136,8 +137,6 @@ namespace MosMap_API.Controllers
         }
 
 
-        #region in progress
-        // Create new Location (to be implemented!)
         [HttpPost]
         public async Task<IActionResult> CreateLocation([FromBody]LocationForCreationDto location)
         {
@@ -168,42 +167,12 @@ namespace MosMap_API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        #endregion
 
         #region further methods (not used)
-        /*// implement return of Locations with multiple choosen categories (doesn't work yet)
-        [HttpGet("categoryids/{categoryIds}")]
-        public async Task<IActionResult> GetAllLocationsByCategoryIds([FromQuery] int[] categoryIds)
-        {
-            try
-            {
-                // returns all locations from database
-                IEnumerable<Location> locations = await _service.GetAllLocationsByCategoryIds(categoryIds);
-                // map location to locationdto
-                IEnumerable<LocationDto> locationsResult = _mapper.Map<IEnumerable<LocationDto>>(locations);
-                // Ok = status code 200
-                return Ok(locationsResult);
-            }
-            catch (Exception ex)
-            {
-                // Something went wrong inside GetAllLocations action: {ex.Message}
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }*/
 
 
-        /*// implement return of locations with choosen subcategory; also implement with multiple choosen subcategories!
-        [HttpGet("subcategoryid/{subcategoryId}")]
-        public async Task<IActionResult> GetAllLocationsBySubCategoryId(int subcategoryId)
-        {
-            IEnumerable<Location> locations = await _service.GetAllLocationsBySubCategoryId(subcategoryId);
-            return Ok(locations);
-        }*/
-
-
-
-        // Edit location --> only by admin/council (to be implemented!)
-        /*[HttpPut("{id}")]
+        [Authorize(Roles = "administrator")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> EditLocation(int id, [FromBody] LocationForUpdateDto location)
         {
             try
@@ -229,19 +198,21 @@ namespace MosMap_API.Controllers
 
                 Location updatedLocation = await _service.UpdateLocation(id, location);
 
-                LocationDto updatedLocationDto = _mapper.Map<LocationDto>(locationEntity);
+                //LocationDto updatedLocationDto = _mapper.Map<LocationDto>(locationEntity);
+                //return CreatedAtRoute("LocationById", new { id = id }, updatedLocationDto);
 
-                return CreatedAtRoute("LocationById", new { id = id }, updatedLocationDto);
+                return Ok("Location was edited!");
             }
             catch (Exception ex)
             {
                 // Something went wrong inside UpdateLocation action
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
-        }*/
+        }
 
-        // Delete location --> only by admin/council (to be implemented!)
-        /*[HttpDelete("{id}")]
+
+        [Authorize(Roles = "administrator")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLocation(int id)
         {
             try
@@ -261,7 +232,7 @@ namespace MosMap_API.Controllers
                 // Something went wrong inside DeleteLocation action
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
-        }*/
+        }
 
         #endregion
 

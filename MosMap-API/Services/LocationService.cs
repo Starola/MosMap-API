@@ -39,7 +39,6 @@ namespace MosMap_API.Services
             List<LocationDto> locationsResult = _mapper.Map<List<LocationDto>>(locations);
             locationsResult.ForEach(i =>
             {
-                //i.CategoryId = categoryId;
                 i.SubCategoryIds = _context.SubCategoryLocations
                 .Where(j => j.Location.Id.Equals(i.Id))
                 .Select(j => j.SubCategory.Id)
@@ -51,20 +50,17 @@ namespace MosMap_API.Services
 
         public async Task<LocationDto> GetLocationById(int id)
         {
-            //return await _context.Locations.FirstOrDefaultAsync(i => i.Id.Equals(id));
-
             Location location = await _context.Locations.Include(i => i.Category).FirstOrDefaultAsync(i => i.Id.Equals(id));
             if(location == null)
             {
                 return null;
             }
-            if(!location.ShowLocation)
+            if(!location.ShowLocation && !_uservice.IsAdmin())
             {
                 return null;
             }
 
             LocationDto locationDto = _mapper.Map<LocationDto>(location);
-            //locationDto.CategoryId = location.Category.Id;
             locationDto.SubCategoryIds = await _context.SubCategoryLocations
                 .Where(i => i.Location.Id.Equals(locationDto.Id))
                 .Select(j => j.SubCategory.Id)
@@ -83,8 +79,6 @@ namespace MosMap_API.Services
             return await _gjservice.ConvertLocationDtoToGeoJson(locationDtos);
         }
 
-
-        #region in progress!
 
         public async Task<Location> CreateLocation(LocationForCreationDto locationDto)
         {
@@ -143,82 +137,43 @@ namespace MosMap_API.Services
 
             return location;
         }
-        #endregion
 
 
-        #region further methods (not used)
-        // Methode nochmal anpassen!
-        /*public async Task<IEnumerable<Location>> GetAllLocationsByCategoryIds(int[] categoryIds)
-        {
-            List<Location> locationResult = new List<Location>();
-            List<Location> locations = await _context.Locations.ToListAsync();
-            foreach (int id in categoryIds.ToList())
-            {
-                locations.ForEach(i =>
-                {
-                    if (i.Category.Id.Equals(id))
-                    {
-                        locationResult.Add(i);
-                    }
-                });
-            }
-            return locationResult;
-        }*/
-
-        /*// Methode nochmal anpassen!
-        public async Task<IEnumerable<Location>> GetAllLocationsBySubCategoryId(int subcategoryId)
-        {
-            List<SubCategoryLocation> subcategoryLocations = await _context.SubCategoryLocations
-                .Where(i => i.SubCategory.Id.Equals(subcategoryId))
-                .ToListAsync();
-            List<Location> locations = await _context.Locations.ToListAsync();
-            List<Location> locationsResult = new List<Location>();
-
-            subcategoryLocations.ForEach(i =>
-            {
-                foreach (Location loc in locations)
-                {
-                    if (i.Location.Id.Equals(loc.Id))
-                    {
-                        locationsResult.Add(loc);
-                    }
-                }
-            });
-
-            return locationsResult;
-        }*/
-
-        /*
-        // Methode nochmal anpassen!
+        #region in progress
+       
         public async Task<Location> UpdateLocation(int id, LocationForUpdateDto locationDto)
         {
             Category category = await _context.Categories
                 .FirstOrDefaultAsync(i => i.Id.Equals(locationDto.CategoryId));
 
+            string latitudedto = locationDto.Latitude;
+            if (latitudedto.Contains(','))
+            {
+                latitudedto = latitudedto.Replace(',', '.');
+            }
+
+
+            string longitudedto = locationDto.Longitude;
+            if (longitudedto.Contains(','))
+            {
+                longitudedto = longitudedto.Replace(',', '.');
+            }
+
             Location location = await _context.Locations.FirstOrDefaultAsync(i => i.Id.Equals(id));
 
             location.LocationName = locationDto.LocationName;
             location.LocationDescription = locationDto.LocationDescription;
-            location.Latitude = locationDto.Latitude;
-            location.Longitude = locationDto.Longitude;
+            location.Latitude = /*locationDto.Latitude*/ latitudedto;
+            location.Longitude = /*locationDto.Longitude*/ longitudedto;
+            location.Address = locationDto.Address;
             location.Category = category;
 
             _context.Update(location);
             await _context.SaveChangesAsync();
 
-            return location;
-        }*/
-
-
-        /*
-        // Methode nochmal anpassen!
-        public void DeleteLocation(LocationDto location)
-        {
-            _context.Remove(location);
-
-            // delete all subcategorylocations with locationid of deleted location
+            // delete all subcategorylocations with locationid of edited location
             List<SubCategoryLocation> subCategoryLocations = _context.SubCategoryLocations
-            .Where(j => j.Location.Id
+            .Where(i => i.Location.Id
             .Equals(location.Id))
             .ToList();
 
@@ -228,7 +183,41 @@ namespace MosMap_API.Services
             }
 
             _context.SaveChanges();
-        }*/
+
+            // connect location with subcategories
+            foreach (int subCatId in locationDto.SubCategoryIds)
+            {
+                SubCategoryLocation subCategoryLocation = new SubCategoryLocation
+                {
+                    Location = location,
+                    SubCategory = _context.SubCategories.FirstOrDefault(i => i.Id.Equals(subCatId))
+                };
+                _context.SubCategoryLocations.Add(subCategoryLocation);
+                _context.SaveChanges();
+            }
+
+            return location;
+        }
+
+        
+        public void DeleteLocation(LocationDto locationdto)
+        {
+            Location location = _context.Locations.FirstOrDefault(i => i.Id.Equals(locationdto.Id));
+            _context.Remove(location);
+
+            // delete all subcategorylocations with locationid of deleted location
+            List<SubCategoryLocation> subCategoryLocations = _context.SubCategoryLocations
+            .Where(i => i.Location.Id
+            .Equals(locationdto.Id))
+            .ToList();
+
+            if (subCategoryLocations.Count() != 0)
+            {
+                subCategoryLocations.ForEach(x => _context.Remove(x));
+            }
+
+            _context.SaveChanges();
+        }
         #endregion
 
 

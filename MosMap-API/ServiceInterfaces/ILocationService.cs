@@ -37,16 +37,12 @@ namespace MosMap_API.ServiceInterfaces
         /// <returns></returns>
         Task<IEnumerable<LocationAsGeoJsonDto>> GetLocationsAsGeoJson(IEnumerable<LocationDto> locationDtos);
 
-        #region in progress
-        //Task<IEnumerable<Location>> GetAllLocationsByCategoryIds(int[] categoryIds);
-        //Task<IEnumerable<Location>> GetAllLocationsBySubCategoryId(int subcategoryId);
-        
+
         Task<Location> CreateLocation(LocationForCreationDto locationDto);
 
-        //Task<Location> UpdateLocation(int id, LocationForUpdateDto locationDto);
-        //void DeleteLocation(LocationDto location);
-
-        //Task<Location> CreateLocationByUser(LocationForCreationDto locationDto);
+        #region in progress
+        Task<Location> UpdateLocation(int id, LocationForUpdateDto locationDto);
+        void DeleteLocation(LocationDto locationdto);
         #endregion
 
 
