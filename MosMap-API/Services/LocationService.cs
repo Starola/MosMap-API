@@ -7,6 +7,7 @@ using MosMap_API.Models;
 using MosMap_API.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -80,22 +81,17 @@ namespace MosMap_API.Services
         }
 
 
+
         public async Task<Location> CreateLocation(LocationForCreationDto locationDto)
         {
+            string latitudedto = ReplaceCommaInCoordinate(locationDto.Latitude);
 
-            string latitudedto = locationDto.Latitude;
-            if (latitudedto.Contains(','))
+            string longitudedto = ReplaceCommaInCoordinate(locationDto.Longitude);
+
+            if(!CheckCoordinateLimit(latitudedto, longitudedto))
             {
-                latitudedto = latitudedto.Replace(',', '.');
+                throw new Exception(message: "Die Koordinaten liegen außerhalb des Bereiches von Mosbach");
             }
-
-
-            string longitudedto = locationDto.Longitude;
-            if (longitudedto.Contains(','))
-            {
-                longitudedto = longitudedto.Replace(',', '.');
-            }
-
 
             // Create new location with data from locationdto
             Location location = new Location
@@ -138,26 +134,46 @@ namespace MosMap_API.Services
             return location;
         }
 
+        private string ReplaceCommaInCoordinate(string coordinate)
+        {
+            if (coordinate.Contains(','))
+            {
+                coordinate = coordinate.Replace(',', '.');
+            }
+            return coordinate;
+        }
+
+        private bool CheckCoordinateLimit(string latitudedto, string longitudedto)
+        {
+            // coordinates limit:   49.472380/9.047680    49.472380/9.209718
+            //                      49.316411/9.047680    49.316411/9.209718
+            double latit = Convert.ToDouble(latitudedto, new CultureInfo("en-US"));
+            double longit = Convert.ToDouble(longitudedto, new CultureInfo("en-US"));
+
+            if (latit > 49.472380 || latit < 49.316411 || longit < 9.047680 || longit > 9.209718)
+            {
+                return false;
+            }
+            return true;
+        }
+
 
         #region in progress
-       
+
         public async Task<Location> UpdateLocation(int id, LocationForUpdateDto locationDto)
         {
             Category category = await _context.Categories
                 .FirstOrDefaultAsync(i => i.Id.Equals(locationDto.CategoryId));
 
-            string latitudedto = locationDto.Latitude;
-            if (latitudedto.Contains(','))
+            string latitudedto = ReplaceCommaInCoordinate(locationDto.Latitude);
+
+            string longitudedto = ReplaceCommaInCoordinate(locationDto.Longitude);
+
+            if (!CheckCoordinateLimit(latitudedto, longitudedto))
             {
-                latitudedto = latitudedto.Replace(',', '.');
+                throw new Exception(message: "Die Koordinaten liegen außerhalb des Bereiches von Mosbach");
             }
 
-
-            string longitudedto = locationDto.Longitude;
-            if (longitudedto.Contains(','))
-            {
-                longitudedto = longitudedto.Replace(',', '.');
-            }
 
             Location location = await _context.Locations.FirstOrDefaultAsync(i => i.Id.Equals(id));
 
