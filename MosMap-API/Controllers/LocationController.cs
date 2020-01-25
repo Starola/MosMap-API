@@ -95,7 +95,6 @@ namespace MosMap_API.Controllers
                 }
                 else
                 {
-                    //LocationDto locationResult = _mapper.Map<LocationDto>(location);
                     return Ok(location);
                 }
             }
@@ -156,9 +155,6 @@ namespace MosMap_API.Controllers
 
                 Location createdLocation = await _service.CreateLocation(location);
 
-                //LocationDto createdLocationDto = await _service.GetLocationById(createdLocation.Id);
-
-                //return CreatedAtRoute("LocationById", new { id = createdLocationDto.Id }, createdLocationDto);
                 return Ok("Location was created!");
             }
             catch (Exception ex)
@@ -167,8 +163,6 @@ namespace MosMap_API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-
-        #region further methods (not used)
 
 
         [Authorize(Roles = "administrator")]
@@ -197,9 +191,6 @@ namespace MosMap_API.Controllers
                 }
 
                 Location updatedLocation = await _service.UpdateLocation(id, location);
-
-                //LocationDto updatedLocationDto = _mapper.Map<LocationDto>(locationEntity);
-                //return CreatedAtRoute("LocationById", new { id = id }, updatedLocationDto);
 
                 return Ok("Location was edited!");
             }
@@ -233,12 +224,6 @@ namespace MosMap_API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-
-        #endregion
-
-
-
-
 
 
     }

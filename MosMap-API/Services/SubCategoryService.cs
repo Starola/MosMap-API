@@ -39,8 +39,6 @@ namespace MosMap_API.Services
             await _context.SaveChangesAsync();
 
             return subCategory;
-            /*_context.Add(subCategory);
-            _context.SaveChanges();*/
         }
 
         public void DeleteSubCategory(SubCategory subCategory)
@@ -71,10 +69,6 @@ namespace MosMap_API.Services
 
         public async Task<SubCategory> GetSubCategoryById(int id)
         {
-            /*return _context.SubCategories
-                .Where(i => i.Id.Equals(id))
-                .FirstOrDefault();*/
-
             return await _context.SubCategories
                 .Include(i => i.Category)
                 .FirstOrDefaultAsync(i => i.Id.Equals(id));

@@ -16,6 +16,5 @@ namespace MosMap_API.Dtos
         public int CategoryId {get; set;}
         public List<int> SubCategoryIds {get; set;}
         
-        //public int UserId { get; set; }
     }
 }

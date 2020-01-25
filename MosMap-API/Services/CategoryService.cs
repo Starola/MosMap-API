@@ -23,22 +23,11 @@ namespace MosMap_API.Services
 
         public async Task<IEnumerable<Category>> GetAllCategories()
         {
-            /*return _context.Categories
-                .Include(sub => sub.SubCategories)
-                .Include(loc => loc.Locations)
-                .ToList();*/
-
             return await _context.Categories.ToListAsync();
         }
 
         public async Task<Category> GetCategoryById(int id)
         {
-            /*return _context.Categories
-                .Where(i => i.Id.Equals(id))
-                .Include(sub => sub.SubCategories)
-                .Include(loc => loc.Locations)
-                .FirstOrDefault();*/
-
             return await _context.Categories.FirstOrDefaultAsync(i => i.Id.Equals(id));
         }
 
@@ -57,7 +46,6 @@ namespace MosMap_API.Services
         public void DeleteCategory(Category category)
         {
             _context.Remove(category);
-            //_context.SaveChanges();
 
             // delete all subcategories with categoryid of deleted category
             List<SubCategory> subcategories = _context.SubCategories

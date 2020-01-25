@@ -40,10 +40,9 @@ namespace MosMap_API.ServiceInterfaces
 
         Task<Location> CreateLocation(LocationForCreationDto locationDto);
 
-        #region in progress
         Task<Location> UpdateLocation(int id, LocationForUpdateDto locationDto);
         void DeleteLocation(LocationDto locationdto);
-        #endregion
+
 
 
     }

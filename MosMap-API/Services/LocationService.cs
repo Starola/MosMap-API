@@ -98,8 +98,8 @@ namespace MosMap_API.Services
             {
                 LocationDescription = locationDto.LocationDescription,
                 LocationName = locationDto.LocationName,
-                Latitude = /*locationDto.Latitude,*/ latitudedto,
-                Longitude = /*locationDto.Longitude,*/ longitudedto,
+                Latitude = latitudedto,
+                Longitude = longitudedto,
                 Address = locationDto.Address,
                 Category = await _context.Categories.FirstOrDefaultAsync(i => i.Id.Equals(locationDto.CategoryId)),
                 UserSuggestedLocation = true,
@@ -158,8 +158,6 @@ namespace MosMap_API.Services
         }
 
 
-        #region in progress
-
         public async Task<Location> UpdateLocation(int id, LocationForUpdateDto locationDto)
         {
             Category category = await _context.Categories
@@ -179,8 +177,8 @@ namespace MosMap_API.Services
 
             location.LocationName = locationDto.LocationName;
             location.LocationDescription = locationDto.LocationDescription;
-            location.Latitude = /*locationDto.Latitude*/ latitudedto;
-            location.Longitude = /*locationDto.Longitude*/ longitudedto;
+            location.Latitude = latitudedto;
+            location.Longitude = longitudedto;
             location.Address = locationDto.Address;
             location.Category = category;
 
@@ -234,9 +232,6 @@ namespace MosMap_API.Services
 
             _context.SaveChanges();
         }
-        #endregion
-
-
 
     }
 }
