@@ -40,7 +40,7 @@ namespace MosMap_API
         {
             services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
-            CheckAndCreateAuthRoles(services);
+            //CheckAndCreateAuthRoles(services);
 
             services.AddControllers();
             services.AddCors();
@@ -109,7 +109,7 @@ namespace MosMap_API
         }
 
         // checks if roles exist in db-table authorizations and creates them
-        private void CheckAndCreateAuthRoles(IServiceCollection services)
+        /*private void CheckAndCreateAuthRoles(IServiceCollection services)
         {
             var context = services.BuildServiceProvider()
                        .GetService<DataContext>();
@@ -126,6 +126,6 @@ namespace MosMap_API
                 context.Authorizations.Add(new Models.Authorization() { Role = "user", Id = 1 });
             }
             context.SaveChanges();
-        }
+        }*/
     }
 }
