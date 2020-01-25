@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,8 @@ namespace MosMap_API.Services
          */
         public async Task<ApplicationUser> Register(UserForRegisterDto userForRegisterDto)
         {
+            this.CheckAndCreateAuthRoles();
+
             //convert the username to lowercase (not possible Matt und matt)
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
             
@@ -164,6 +167,35 @@ namespace MosMap_API.Services
                 return true;
             return false;
         }
-        
+
+
+        // checks if roles exist in db-table authorizations and creates them
+        private void CheckAndCreateAuthRoles()
+        {
+            // Check if AuthorizationRole with id = 1 is user, else update/create role user with id 1
+            Authorization auth = _context.Authorizations.FirstOrDefault(i => i.Id.Equals(1));
+            if(auth != null && !auth.Role.Equals("user"))
+            {
+                auth.Role = "user";
+                _context.Update(auth);
+            }
+            if(auth == null)
+            {
+                _context.Authorizations.Add(new Models.Authorization() { Role = "user", Id = 1 });
+            }
+
+            // check if roles administrator and council exist, else create them
+            if (_context.Authorizations.FirstOrDefault(i => i.Role.Equals("council")) == null)
+            {
+                _context.Authorizations.Add(new Models.Authorization() { Role = "council"});
+            }
+            if (_context.Authorizations.FirstOrDefault(i => i.Role.Equals("administrator")) == null)
+            {
+                _context.Authorizations.Add(new Models.Authorization() { Role = "administrator"});
+            }
+
+            _context.SaveChanges();
+        }
+
     }
 }
