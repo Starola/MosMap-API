@@ -45,6 +45,7 @@ namespace MosMap_API.Services
                 .Include(i => i.User)
                 .ToListAsync();
 
+
             List<LocationForAdminDto> locationsResult = _mapper.Map<List<LocationForAdminDto>>(locations);
             locationsResult.ForEach(i =>
             {
@@ -52,6 +53,11 @@ namespace MosMap_API.Services
                 .Where(j => j.Location.Id.Equals(i.Id))
                 .Select(j => j.SubCategory.Id)
                 .ToList();
+
+                i.CategoryName = _context.Categories
+                .Where(j => j.Id.Equals(i.CategoryId))
+                .Select(j => j.CategoryName)
+                .FirstOrDefault();
             });
 
             return locationsResult;
@@ -72,6 +78,11 @@ namespace MosMap_API.Services
                 .Where(j => j.Location.Id.Equals(i.Id))
                 .Select(j => j.SubCategory.Id)
                 .ToList();
+
+                i.CategoryName = _context.Categories
+                .Where(j => j.Id.Equals(i.CategoryId))
+                .Select(j => j.CategoryName)
+                .FirstOrDefault();
             });
 
             return locationsResult;
