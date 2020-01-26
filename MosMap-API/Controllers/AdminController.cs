@@ -71,7 +71,7 @@ namespace MosMap_API.Controllers
             {
                 _service.AcceptLocation(locationForAcceptDto);
 
-                return Ok("Location was checked by admin");
+                return Ok();
             }
             catch (Exception ex)
             {
