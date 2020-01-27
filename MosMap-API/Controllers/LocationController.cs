@@ -155,7 +155,7 @@ namespace MosMap_API.Controllers
 
                 Location createdLocation = await _service.CreateLocation(location);
 
-                return Ok("Location was created!");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -192,7 +192,7 @@ namespace MosMap_API.Controllers
 
                 Location updatedLocation = await _service.UpdateLocation(id, location);
 
-                return Ok("Location was edited!");
+                return Ok();
             }
             catch (Exception ex)
             {
