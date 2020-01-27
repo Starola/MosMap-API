@@ -28,5 +28,7 @@ namespace MosMap_API.Models
         public virtual ApplicationUser User { get; set; }
         public virtual Category Category { get; set; }
         public virtual ICollection<SubCategoryLocation> SubCategoryLocations { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

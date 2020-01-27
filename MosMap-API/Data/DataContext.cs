@@ -18,5 +18,6 @@ namespace MosMap_API.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<SubCategoryLocation> SubCategoryLocations { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }

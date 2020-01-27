@@ -11,5 +11,6 @@ namespace MosMap_API.Models
 
         public virtual Authorization Authorization { get; set; }
         public virtual ICollection<Location> Locations { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

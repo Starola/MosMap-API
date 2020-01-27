@@ -28,6 +28,10 @@ namespace MosMap_API
 
             CreateMap<Location, LocationForAdminDto>();
 
+            // Comment:
+            CreateMap<Comment, CommentDto>();
+            CreateMap<CommentForCreationDto, Comment>();
+
         }
     }
 }
