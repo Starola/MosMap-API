@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Lukas\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Lukas\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_MosMap-API.983640645.00" t="ExcludeRecursive" />
-    <e p="D:\Mosbach\Softwareporjekt\MosMap-API\MosMap-API" t="IncludeFlat">
+    <e p="C:\Users\chris\.Rider2019.2\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\chris\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\chris\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_MosMap-API.-1462434230.00" t="ExcludeRecursive" />
+    <e p="D:\Programmieren\MosMap-API" t="IncludeFlat">
       <e p="MosMap-API" t="IncludeRecursive">
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
@@ -12,6 +13,7 @@
           <e p="AdminController.cs" t="Include" />
           <e p="AuthController.cs" t="Include" />
           <e p="CategoryController.cs" t="Include" />
+          <e p="CommentController.cs" t="Include" />
           <e p="LocationController.cs" t="Include" />
           <e p="SubCategoryController.cs" t="Include" />
           <e p="WeatherForecastController.cs" t="Include" />
@@ -23,6 +25,8 @@
           <e p="CategoryDto.cs" t="Include" />
           <e p="CategoryForCreationDto.cs" t="Include" />
           <e p="CategoryForUpdateDto.cs" t="Include" />
+          <e p="CommentDto.cs" t="Include" />
+          <e p="CommentForCreationDto.cs" t="Include" />
           <e p="LocationAsGeoJsonDto.cs" t="Include" />
           <e p="LocationDto.cs" t="Include" />
           <e p="LocationForAcceptDto.cs" t="Include" />
@@ -37,19 +41,26 @@
           <e p="UserForRegisterDto.cs" t="Include" />
         </e>
         <e p="Helpers" t="Include">
+          <e p="CloudinarySettings.cs" t="Include" />
           <e p="Extensions.cs" t="Include" />
         </e>
         <e p="MappingProfile.cs" t="Include" />
         <e p="Migrations" t="Include">
           <e p="20200119181105_Initial.cs" t="Include" />
           <e p="20200119181105_Initial.Designer.cs" t="Include" />
+          <e p="20200127130644_CommentTable.cs" t="Include" />
+          <e p="20200127130644_CommentTable.Designer.cs" t="Include" />
+          <e p="20200128201523_addedPhotos.cs" t="Include" />
+          <e p="20200128201523_addedPhotos.Designer.cs" t="Include" />
           <e p="DataContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
           <e p="ApplicationUser.cs" t="Include" />
           <e p="Authorization.cs" t="Include" />
           <e p="Category.cs" t="Include" />
+          <e p="Comment.cs" t="Include" />
           <e p="Location.cs" t="Include" />
+          <e p="Photo.cs" t="Include" />
           <e p="SubCategory.cs" t="Include" />
           <e p="SubCategoryLocation.cs" t="Include" />
           <e p="TestModel.cs" t="Include" />
@@ -70,6 +81,7 @@
           <e p="IAdminService.cs" t="Include" />
           <e p="IAuthService.cs" t="Include" />
           <e p="ICategoryService.cs" t="Include" />
+          <e p="ICommentService.cs" t="Include" />
           <e p="IGeoJsonService.cs" t="Include" />
           <e p="ILocationService.cs" t="Include" />
           <e p="ISubCategoryService.cs" t="Include" />
@@ -79,6 +91,7 @@
           <e p="AdminService.cs" t="Include" />
           <e p="AuthService.cs" t="Include" />
           <e p="CategoryService.cs" t="Include" />
+          <e p="CommentService.cs" t="Include" />
           <e p="GeoJsonService.cs" t="Include" />
           <e p="LocationService.cs" t="Include" />
           <e p="SubCategoryService.cs" t="Include" />

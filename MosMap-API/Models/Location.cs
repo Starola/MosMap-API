@@ -30,5 +30,7 @@ namespace MosMap_API.Models
         public virtual ICollection<SubCategoryLocation> SubCategoryLocations { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+        
+        public virtual ICollection<Photo> Photos { get; set; }
     }
 }
