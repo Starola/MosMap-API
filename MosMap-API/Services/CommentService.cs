@@ -37,8 +37,8 @@ namespace MosMap_API.Services
                 Location = _context.Locations.FirstOrDefault(i => i.Id.Equals(commentDto.LocationId))
             };
 
-            _context.Comments.Add(comment);
-            _context.SaveChanges();
+            await _context.Comments.AddAsync(comment);
+            await _context.SaveChangesAsync();
 
             return comment;
         }
