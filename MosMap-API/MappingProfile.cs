@@ -31,6 +31,10 @@ namespace MosMap_API
             // Comment:
             CreateMap<Comment, CommentDto>();
             CreateMap<CommentForCreationDto, Comment>();
+            
+            //Photo:
+            CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<Photo, PhotoForReturnDto>();
 
         }
     }

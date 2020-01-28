@@ -50,6 +50,7 @@ namespace MosMap_API
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IPhotosService, PhotoService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

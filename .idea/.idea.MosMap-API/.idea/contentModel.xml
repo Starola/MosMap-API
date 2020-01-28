@@ -15,6 +15,7 @@
           <e p="CategoryController.cs" t="Include" />
           <e p="CommentController.cs" t="Include" />
           <e p="LocationController.cs" t="Include" />
+          <e p="PhotosController.cs" t="Include" />
           <e p="SubCategoryController.cs" t="Include" />
           <e p="WeatherForecastController.cs" t="Include" />
         </e>
@@ -33,6 +34,8 @@
           <e p="LocationForAdminDto.cs" t="Include" />
           <e p="LocationForCreationDto.cs" t="Include" />
           <e p="LocationForUpdateDto.cs" t="Include" />
+          <e p="PhotoForCreationDto.cs" t="Include" />
+          <e p="PhotoForReturnDto.cs" t="Include" />
           <e p="SubCategoryDto.cs" t="Include" />
           <e p="SubCategoryForCreationDto.cs" t="Include" />
           <e p="SubCategoryForUpdateDto.cs" t="Include" />
@@ -52,6 +55,8 @@
           <e p="20200127130644_CommentTable.Designer.cs" t="Include" />
           <e p="20200128201523_addedPhotos.cs" t="Include" />
           <e p="20200128201523_addedPhotos.Designer.cs" t="Include" />
+          <e p="20200128202016_addedPublicId.cs" t="Include" />
+          <e p="20200128202016_addedPublicId.Designer.cs" t="Include" />
           <e p="DataContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
@@ -84,6 +89,7 @@
           <e p="ICommentService.cs" t="Include" />
           <e p="IGeoJsonService.cs" t="Include" />
           <e p="ILocationService.cs" t="Include" />
+          <e p="IPhotosService.cs" t="Include" />
           <e p="ISubCategoryService.cs" t="Include" />
           <e p="IUserService.cs" t="Include" />
         </e>
@@ -94,6 +100,7 @@
           <e p="CommentService.cs" t="Include" />
           <e p="GeoJsonService.cs" t="Include" />
           <e p="LocationService.cs" t="Include" />
+          <e p="PhotoService.cs" t="Include" />
           <e p="SubCategoryService.cs" t="Include" />
           <e p="UserService.cs" t="Include" />
         </e>
