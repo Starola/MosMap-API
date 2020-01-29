@@ -12,7 +12,7 @@ using MosMap_API.ServiceInterfaces;
 
 namespace MosMap_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/loc/{locationId}/[controller]")]
     [ApiController]
     
     public class PhotosController : ControllerBase

@@ -59,11 +59,16 @@ namespace MosMap_API.Services
 
             photoForCreationDto.Url = uploadResult.Uri.ToString();
             photoForCreationDto.PublicId = uploadResult.PublicId;
+            
 
             var photo = _mapper.Map<Photo>(photoForCreationDto);
             
             photo.IsMain = true;
+            var location = this._context.Locations.FirstOrDefault(x => x.Id == locationId);
+
+            photo.Location = location;
             await _context.Photos.AddAsync(photo);
+            
             
             
             await _context.SaveChangesAsync();
