@@ -14,7 +14,7 @@ namespace MosMap_API.ServiceInterfaces
         /// </summary>
         /// <param name="categoryId"></param>
         /// <returns></returns>
-        Task<IEnumerable<LocationDto>> GetAllLocationsByCategoryId(int categoryId);
+        Task<IEnumerable<LocationByCategoryDto>> GetAllLocationsByCategoryId(int categoryId);
 
         /// <summary>
         /// Returns location with passed locationid
@@ -35,7 +35,7 @@ namespace MosMap_API.ServiceInterfaces
         /// </summary>
         /// <param name="locationDtos"></param>
         /// <returns></returns>
-        Task<IEnumerable<LocationAsGeoJsonDto>> GetLocationsAsGeoJson(IEnumerable<LocationDto> locationDtos);
+        Task<IEnumerable<LocationAsGeoJsonDto>> GetLocationsAsGeoJson(IEnumerable<LocationByCategoryDto> locationDtos);
 
 
         Task<Location> CreateLocation(LocationForCreationDto locationDto);

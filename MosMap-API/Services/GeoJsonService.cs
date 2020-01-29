@@ -26,7 +26,7 @@ namespace MosMap_API.Services
             return loc;
         }
 
-        public async Task<List<LocationAsGeoJsonDto>> ConvertLocationDtoToGeoJson(IEnumerable<LocationDto> locationDtos)
+        public async Task<List<LocationAsGeoJsonDto>> ConvertLocationDtoToGeoJson(IEnumerable<LocationByCategoryDto> locationDtos)
         {
             List<LocationAsGeoJsonDto> locationsResult = new List<LocationAsGeoJsonDto>();
             locationDtos.ToList().ForEach(i =>

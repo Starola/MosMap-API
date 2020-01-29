@@ -29,6 +29,7 @@
           <e p="CommentDto.cs" t="Include" />
           <e p="CommentForCreationDto.cs" t="Include" />
           <e p="LocationAsGeoJsonDto.cs" t="Include" />
+          <e p="LocationByCategoryDto.cs" t="Include" />
           <e p="LocationDto.cs" t="Include" />
           <e p="LocationForAcceptDto.cs" t="Include" />
           <e p="LocationForAdminDto.cs" t="Include" />

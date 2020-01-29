@@ -29,6 +29,9 @@ namespace MosMap_API
                     opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url));
 
             CreateMap<Location, LocationForAdminDto>();
+            CreateMap<Location, LocationByCategoryDto>()
+                .ForMember(dest => dest.PhotoUrl, opt =>
+                opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url));
 
             // Comment:
             CreateMap<Comment, CommentDto>();

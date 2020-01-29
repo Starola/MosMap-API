@@ -38,7 +38,7 @@ namespace MosMap_API.Controllers
             try
             {
                 // returns all locations from database
-                IEnumerable<LocationDto> locationsResult = await _service.GetAllLocationsByCategoryId(categoryId);
+                IEnumerable<LocationByCategoryDto> locationsResult = await _service.GetAllLocationsByCategoryId(categoryId);
 
                 // Ok = status code 200
                 return Ok(locationsResult);
@@ -61,7 +61,7 @@ namespace MosMap_API.Controllers
             try
             {
                 // returns all locations from database
-                IEnumerable<LocationDto> locationsDtos = await _service.GetAllLocationsByCategoryId(categoryId);
+                IEnumerable<LocationByCategoryDto> locationsDtos = await _service.GetAllLocationsByCategoryId(categoryId);
 
                 // Convert locations to geojson format
                 IEnumerable <LocationAsGeoJsonDto> locationsResult = await _service.GetLocationsAsGeoJson(locationsDtos);

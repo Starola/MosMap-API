@@ -20,7 +20,7 @@ namespace MosMap_API.ServiceInterfaces
         /// </summary>
         /// <param name="locationDtos"></param>
         /// <returns></returns>
-        Task<List<LocationAsGeoJsonDto>> ConvertLocationDtoToGeoJson(IEnumerable<LocationDto> locationDtos);
+        Task<List<LocationAsGeoJsonDto>> ConvertLocationDtoToGeoJson(IEnumerable<LocationByCategoryDto> locationDtos);
 
     }
 }

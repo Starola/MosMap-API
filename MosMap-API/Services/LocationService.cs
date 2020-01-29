@@ -31,13 +31,13 @@ namespace MosMap_API.Services
         }
 
 
-        public async Task<IEnumerable<LocationDto>> GetAllLocationsByCategoryId(int categoryId)
+        public async Task<IEnumerable<LocationByCategoryDto>> GetAllLocationsByCategoryId(int categoryId)
         {
-            List<Location> locations = await _context.Locations
+            List<Location> locations = await _context.Locations.Include(i => i.Photos)
                 .Where(i => i.Category.Id.Equals(categoryId) && i.ShowLocation)
                 .Include(i => i.Category)
                 .ToListAsync();
-            List<LocationDto> locationsResult = _mapper.Map<List<LocationDto>>(locations);
+            List<LocationByCategoryDto> locationsResult = _mapper.Map<List<LocationByCategoryDto>>(locations);
             locationsResult.ForEach(i =>
             {
                 i.SubCategoryIds = _context.SubCategoryLocations
@@ -75,7 +75,7 @@ namespace MosMap_API.Services
             return await _gjservice.ConvertLocationDtoToGeoJson(locationDto);
         }
 
-        public async Task<IEnumerable<LocationAsGeoJsonDto>> GetLocationsAsGeoJson(IEnumerable<LocationDto> locationDtos)
+        public async Task<IEnumerable<LocationAsGeoJsonDto>> GetLocationsAsGeoJson(IEnumerable<LocationByCategoryDto> locationDtos)
         {
             return await _gjservice.ConvertLocationDtoToGeoJson(locationDtos);
         }
