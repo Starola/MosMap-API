@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MosMap_API.Models;
 
 namespace MosMap_API.Dtos
 {
@@ -19,6 +20,10 @@ namespace MosMap_API.Dtos
 
         public int CategoryId { get; set; }
         public List<int> SubCategoryIds { get; set; }
+        
+        public string PhotoUrl { get; set; }
+
+        public ICollection<PhotoForDetailDto> Photos { get; set; }
 
     }
 }

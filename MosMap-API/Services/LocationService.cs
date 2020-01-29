@@ -51,7 +51,7 @@ namespace MosMap_API.Services
 
         public async Task<LocationDto> GetLocationById(int id)
         {
-            Location location = await _context.Locations.Include(i => i.Category).FirstOrDefaultAsync(i => i.Id.Equals(id));
+            Location location = await _context.Locations.Include(i => i.Category).Include(i => i.Photos).FirstOrDefaultAsync(i => i.Id.Equals(id));
             if(location == null)
             {
                 return null;

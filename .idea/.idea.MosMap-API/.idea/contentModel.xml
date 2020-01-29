@@ -35,6 +35,7 @@
           <e p="LocationForCreationDto.cs" t="Include" />
           <e p="LocationForUpdateDto.cs" t="Include" />
           <e p="PhotoForCreationDto.cs" t="Include" />
+          <e p="PhotoForDetailDto.cs" t="Include" />
           <e p="PhotoForReturnDto.cs" t="Include" />
           <e p="SubCategoryDto.cs" t="Include" />
           <e p="SubCategoryForCreationDto.cs" t="Include" />

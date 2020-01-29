@@ -24,7 +24,9 @@ namespace MosMap_API
             CreateMap<SubCategoryForUpdateDto, SubCategory>();
 
             // Location:
-            CreateMap<Location, LocationDto>();
+            CreateMap<Location, LocationDto>()
+                .ForMember(dest => dest.PhotoUrl, opt =>
+                    opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url));
 
             CreateMap<Location, LocationForAdminDto>();
 
@@ -33,6 +35,7 @@ namespace MosMap_API
             CreateMap<CommentForCreationDto, Comment>();
             
             //Photo:
+            CreateMap<Photo, PhotoForDetailDto>();
             CreateMap<PhotoForCreationDto, Photo>();
             CreateMap<Photo, PhotoForReturnDto>();
 
