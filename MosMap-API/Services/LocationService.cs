@@ -221,13 +221,30 @@ namespace MosMap_API.Services
 
             // delete all subcategorylocations with locationid of deleted location
             List<SubCategoryLocation> subCategoryLocations = _context.SubCategoryLocations
-            .Where(i => i.Location.Id
-            .Equals(locationdto.Id))
+            .Where(i => i.Location.Id.Equals(locationdto.Id))
             .ToList();
 
             if (subCategoryLocations.Count() != 0)
             {
                 subCategoryLocations.ForEach(x => _context.Remove(x));
+            }
+
+            // delete all comments with locationid of deleted location
+            List<Comment> comments = _context.Comments
+                .Where(i => i.Location.Id.Equals(locationdto.Id))
+                .ToList();
+            if(comments.Count() != 0)
+            {
+                comments.ForEach(x => _context.Remove(x));
+            }
+
+            // delete all photos with locationid of deleted location
+            List<Photo> photos = _context.Photos
+                .Where(i => i.Location.Id.Equals(locationdto.Id))
+                .ToList();
+            if (photos.Count() != 0)
+            {
+                photos.ForEach(x => _context.Remove(x));
             }
 
             _context.SaveChanges();
