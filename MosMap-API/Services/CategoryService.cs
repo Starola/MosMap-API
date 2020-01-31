@@ -85,6 +85,24 @@ namespace MosMap_API.Services
                 {
                     _context.Remove(i);
 
+                    // delete all comments with locationid of deleted location
+                    List<Comment> comments = _context.Comments
+                        .Where(i => i.Location.Id.Equals(i.Id))
+                        .ToList();
+                    if (comments.Count() != 0)
+                    {
+                        comments.ForEach(x => _context.Remove(x));
+                    }
+
+                    // delete all photos with locationid of deleted location
+                    List<Photo> photos = _context.Photos
+                        .Where(i => i.Location.Id.Equals(i.Id))
+                        .ToList();
+                    if (photos.Count() != 0)
+                    {
+                        photos.ForEach(x => _context.Remove(x));
+                    }
+
                     // delete all subcategorylocations with locationid of deleted location
                     List<SubCategoryLocation> subCategoryLocations = _context.SubCategoryLocations
                     .Where(j => j.Location.Id
